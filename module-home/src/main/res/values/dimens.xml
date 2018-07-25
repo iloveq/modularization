@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_border_divider_height">6dp</dimen>
+    <dimen name="home_border_padding_spans">3dp</dimen>
+    <dimen name="home_card_corner_radius">2dp</dimen>
+    <dimen name="home_card_elevation">3dp</dimen>
+</resources>

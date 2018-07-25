@@ -1,0 +1,50 @@
+if(isBuildAll.toBoolean()||isLibraryLogin.toBoolean()){
+    apply plugin: 'com.android.library'
+}else {
+    apply plugin: 'com.android.application'
+}
+
+android {
+
+    compileSdkVersion var.compileSdkVersion
+    buildToolsVersion var.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion var.minSdkVersion
+        targetSdkVersion var.targetSdkVersion
+        versionCode var.versionCode
+        versionName var.versionName
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+
+
+
+    sourceSets {
+        main {
+            if (isBuildAll.toBoolean() || isLibraryLogin.toBoolean()) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+
+                //We'll not compile the debug folder when building all.
+                java {
+                    exclude 'debug/**'
+                }
+            } else {
+                manifest.srcFile 'src/main/java/module/AndroidManifest.xml'
+            }
+        }
+    }
+
+    resourcePrefix "login_"
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor "com.alibaba:arouter-compiler:1.1.4"
+    implementation project(':library-common')
+}

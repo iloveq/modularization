@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/home_Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.credithc.hhr.module_home.view.widget.RatioImageView
+        android:id="@+id/category_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        app:home_imageRatio="0.7"
+        app:home_imageRatioType="widthHeight" />
+
+</android.support.v7.widget.CardView>

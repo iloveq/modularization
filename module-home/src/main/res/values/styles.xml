@@ -1,0 +1,11 @@
+<resources>
+
+
+    <style name="home_Card" parent="CardView">
+        <item name="contentPadding">0dp</item>
+        <item name="cardCornerRadius">@dimen/home_card_corner_radius</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">@dimen/home_card_elevation</item>
+    </style>
+
+</resources>
