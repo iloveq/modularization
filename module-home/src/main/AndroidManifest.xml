@@ -1,15 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.credithc.hhr.module_home" >
+    package="com.credithc.hhr.module_home">
 
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
 
         <activity
-            android:name=".view.activity.MainActivity"
-            android:theme="@style/AppTheme"
+            android:name=".view.activity.HomeActivity"
             android:launchMode="singleTop"
-            />
+            android:theme="@style/AppTheme" />
 
     </application>
 

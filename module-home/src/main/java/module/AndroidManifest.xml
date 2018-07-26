@@ -1,14 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.credithc.hhr.module_home" >
+    package="com.credithc.hhr.module_home">
 
     <application
+        android:name="module.HomeApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:name="module.HomeApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.credithc.hhr.module_home.view.activity.MainActivity">
+        <activity android:name="com.credithc.hhr.module_home.view.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

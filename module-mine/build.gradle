@@ -4,6 +4,8 @@ if(isBuildAll.toBoolean()||isLibraryMine.toBoolean()){
     apply plugin: 'com.android.application'
 }
 
+apply plugin:'com.jakewharton.butterknife'
+
 android {
 
     compileSdkVersion var.compileSdkVersion
@@ -29,7 +31,7 @@ android {
 
                 //We'll not compile the debug folder when building all.
                 java {
-                    exclude 'debug/**'
+                    exclude 'module/**'
                 }
             } else {
                 manifest.srcFile 'src/main/java/module/AndroidManifest.xml'

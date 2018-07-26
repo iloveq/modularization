@@ -32,13 +32,14 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
     implementation project(':library-common')
     if (isBuildAll.toBoolean()) {
+        implementation project(':module-main')
         implementation project(':module-home')
         implementation project(':module-login')
         implementation project(':module-mine')
         implementation project(':module-project')
         implementation project(':module-register')
     }
+
 }

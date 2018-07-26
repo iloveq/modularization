@@ -32,7 +32,7 @@ android {
 
                 //We'll not compile the debug folder when building all.
                 java {
-                    exclude 'debug/**'
+                    exclude 'module/**'
                 }
             } else {
                 manifest.srcFile 'src/main/java/module/AndroidManifest.xml'
