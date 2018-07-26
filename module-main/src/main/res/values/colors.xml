@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="main_tab_text_color_unselect">#999999</color>
+    <color name="main_tab_text_color_select">#0082F6</color>
+    <!-- 通用字体颜色 -->
+    <color name="main_mine_font_gray_color">#888888</color>
+    <color name="main_mine_text_blue">#007aff</color>
+
+    <!--分割线-->
+    <color name="main_colorDivider">#E5E5E5</color>
+
+</resources>
