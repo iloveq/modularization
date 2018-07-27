@@ -2,18 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     android:orientation="vertical">
-
     <!-- 内容布局 -->
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
-
     <!-- 底部导航栏 -->
     <View
         android:layout_width="match_parent"
@@ -24,59 +22,20 @@
         android:id="@+id/llAllTab"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#FFFFFFFF"
+        android:background="@null"
         android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/llTabHome"
-            style="@style/main_tab_style">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"
-                android:src="@drawable/main_tab1_ico_selector" />
-
-            <TextView
-                style="@style/main_tab_tv_style"
-                android:layout_gravity="center"
-                android:text="首页" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llTabProject"
-            style="@style/main_tab_style">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"
-                android:src="@drawable/main_tab2_ico_selector" />
-
-            <TextView
-                style="@style/main_tab_tv_style"
-                android:layout_gravity="center"
-                android:text="项目" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llTabMine"
-            style="@style/main_tab_style">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"
-                android:src="@drawable/main_tab3_ico_selector" />
-
-            <TextView
-                style="@style/main_tab_tv_style"
-                android:layout_gravity="center"
-                android:gravity="bottom"
-                android:text="我的" />
-        </LinearLayout>
+        <com.credithc.hhr.module_main.view.widget.TabView
+            android:id="@+id/tvTabHome"
+            android:text="首页"
+            style="@style/main_tab_view" />
+        <com.credithc.hhr.module_main.view.widget.TabView
+            android:id="@+id/tvTabProject"
+            android:text="项目"
+            style="@style/main_tab_view" />
+        <com.credithc.hhr.module_main.view.widget.TabView
+            android:id="@+id/tvTabMine"
+            android:text="我的"
+            style="@style/main_tab_view"  />
     </LinearLayout>
+
 </LinearLayout>

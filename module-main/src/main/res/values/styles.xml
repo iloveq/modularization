@@ -1,26 +1,18 @@
 <resources>
 
 
-
-    <!-- 首页tab新样式 -->
-    <style name="main_tab_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_weight">1.0</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:clickable">true</item>
+    <style name="main_tab_view">
         <item name="android:focusable">true</item>
-    </style>
-
-    <!-- 首页tab的文字样式 -->
-    <style name="main_tab_tv_style">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawableTop">@drawable/main_tab1_ico_selector</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/main_tab_text_color_unselect</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:duplicateParentState">true</item>
+        <item name="android:textColor">@color/main_tab_text_color_selector</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 </resources>
