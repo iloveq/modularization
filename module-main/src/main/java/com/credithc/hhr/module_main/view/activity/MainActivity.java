@@ -42,9 +42,9 @@ public class MainActivity extends BaseActivity {
     protected void afterCreate(Bundle bundle) {
         mTabs = new TabView[]{tabHome, tabProject, tabMine};
         tabHome.setChecked(true);
-        Fragment homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.home_fragment_router_path).navigation();
-        Fragment projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.project_fragment_router_path).navigation();
-        Fragment mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.mine_fragment_router_path).navigation();
+        Fragment homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
+        Fragment projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
+        Fragment mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
         fragments = new Fragment[]{homeFragment, projectFragment, mineFragment};
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragments[0]).show(fragments[0]).commitAllowingStateLoss();
         showFragment(0);

@@ -5,7 +5,17 @@ package com.credithc.hhr.library_common.config;
  */
 
 public class ARouterConstant {
-    public static final String home_fragment_router_path = "/home/homefragment";
-    public static final String project_fragment_router_path = "/project/projectfragment";
-    public static final String mine_fragment_router_path = "/mine/minefragment";
+
+    /** fragment */
+
+    public static final String fragment_home_router_path = "/home/fragment_home";
+    public static final String fragment_project_router_path = "/project/fragment_project";
+    public static final String fragment_mine_router_path = "/mine/fragment_mine";
+
+
+    /** activity */
+
+
+    /** service */
+
 }
