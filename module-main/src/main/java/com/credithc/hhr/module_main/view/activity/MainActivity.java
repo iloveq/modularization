@@ -27,10 +27,6 @@ public class MainActivity extends BaseActivity {
     private Fragment[] fragments;
     private TabView[] mTabs;
     private int currentTabIndex;
-    @BindView(R2.id.fragment_container)
-    FrameLayout fragmentContainer;
-    @BindView(R2.id.llAllTab)
-    LinearLayout llAllTab;
     @BindView(R2.id.tvTabHome)
     TabView tabHome;
     @BindView(R2.id.tvTabProject)
