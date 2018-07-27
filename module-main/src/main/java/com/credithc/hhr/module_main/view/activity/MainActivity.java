@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.credithc.hhr.library_common.config.ARouterConstant;
@@ -78,11 +76,14 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         if (view.getId() == R.id.tvTabHome) {
             showFragment(0);
-        } else if (view.getId() == R.id.tvTabProject) {
+            return;
+        }
+        if (view.getId() == R.id.tvTabProject) {
             showFragment(1);
-        } else if (view.getId() == R.id.tvTabMine) {
+            return;
+        }
+        if (view.getId() == R.id.tvTabMine) {
             showFragment(2);
         }
-
     }
 }
