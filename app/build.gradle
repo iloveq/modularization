@@ -11,6 +11,7 @@ android {
         targetSdkVersion var.targetSdkVersion
         versionCode var.versionCode
         versionName var.versionName
+        multiDexEnabled true
     }
 
 
