@@ -26,19 +26,19 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api 'com.android.support:appcompat-v7:26.1.0'
-    api 'com.android.support:recyclerview-v7:26.1.0'
-    api 'com.android.support:cardview-v7:26.1.0'
+    api "com.android.support:appcompat-v7:${versions.support_library}"
+    api "com.android.support:recyclerview-v7:${versions.support_library}"
+    api "com.android.support:cardview-v7:${versions.support_library}"
 
-    api 'com.github.woaigmz:SmartDiffAdapter:0.2.1'
+    api "com.github.woaigmz:SmartDiffAdapter:${versions.diff_adapter}"
 
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    api "com.scwang.smartrefresh:SmartRefreshLayout:${versions.refresh_layout}"
+    api "com.scwang.smartrefresh:SmartRefreshHeader:${versions.refresh_header}"
 
-    api 'com.github.woaigmz:AFrame:0.0.8'
+    api "com.github.woaigmz:AFrame:${versions.aframe}"
 
-    api 'com.alibaba:arouter-api:1.3.1'
+    api "com.alibaba:arouter-api:${versions.arouter_api}"
 
-    api 'com.android.support:multidex:1.0.0'
+    api "com.android.support:multidex:${versions.dex}"
 
 }

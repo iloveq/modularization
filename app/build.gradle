@@ -33,7 +33,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleDependency
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
     implementation project(':library-common')
     if (isBuildAll.toBoolean()) {
         implementation project(':module-main')

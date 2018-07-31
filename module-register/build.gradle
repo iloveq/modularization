@@ -53,7 +53,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    annotationProcessor "com.alibaba:arouter-compiler:1.1.4"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
+    annotationProcessor "com.alibaba:arouter-compiler:${versions.arouter_compiler}"
     implementation project(':library-common')
 }
