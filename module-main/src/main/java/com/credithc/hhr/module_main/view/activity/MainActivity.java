@@ -5,12 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.alibaba.android.arouter.exception.InitException;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.credithc.hhr.library_common.config.ARouterConstant;
 import com.credithc.hhr.module_main.R;
 import com.credithc.hhr.module_main.R2;
 import com.credithc.hhr.module_main.view.widget.TabView;
 import com.woaiqw.base.common.BaseActivity;
+import com.woaiqw.base.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -42,10 +44,17 @@ public class MainActivity extends BaseActivity {
     protected void afterCreate(Bundle bundle) {
         mTabs = new TabView[]{tabHome, tabProject, tabMine};
         tabHome.setChecked(true);
-        Fragment homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
-        Fragment projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
-        Fragment mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
-        fragments = new Fragment[]{homeFragment, projectFragment, mineFragment};
+
+        try {
+            Fragment homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
+            Fragment projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
+            Fragment mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
+            fragments = new Fragment[]{homeFragment, projectFragment, mineFragment};
+        } catch (InitException e) {
+            ToastUtil.showShortToast("fragment init error :"+e.getMessage());
+            fragments = new Fragment[]{new Fragment(), new Fragment(), new Fragment()};
+        }
+
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragments[0]).show(fragments[0]).commitAllowingStateLoss();
         showFragment(0);
     }

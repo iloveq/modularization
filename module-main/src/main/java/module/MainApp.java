@@ -1,12 +1,12 @@
 package module;
 
-import android.app.Application;
+import com.woaiqw.base.common.BaseApp;
 
 /**
- * Created by haoran on 2018/7/26.
+ * Created by haoran on 2018/7/26
  */
 
-public class MainApp extends Application {
+public class MainApp extends BaseApp {
 
     @Override
     public void onCreate() {
