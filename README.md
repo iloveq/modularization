@@ -95,7 +95,7 @@ task clean(type: Delete) {
 
 ##### 2：library-common
 
-##### 3：[module-main](https://github.com/woaigmz/modularization/tree/master/module-main)
+##### 3：[module-main](https://github.com/woaigmz/modularization/blob/master/module-main/README.md)
 
 ##### 4：module-home
 
