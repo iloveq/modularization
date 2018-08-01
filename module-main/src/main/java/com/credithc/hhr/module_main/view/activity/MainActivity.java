@@ -3,6 +3,7 @@ package com.credithc.hhr.module_main.view.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.exception.InitException;
@@ -10,9 +11,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.credithc.hhr.library_common.config.ARouterConstant;
 import com.credithc.hhr.module_main.R;
 import com.credithc.hhr.module_main.R2;
+import com.credithc.hhr.module_main.view.fragment.InitExceptionFragment;
 import com.credithc.hhr.module_main.view.widget.TabView;
 import com.woaiqw.base.common.BaseActivity;
-import com.woaiqw.base.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,7 +35,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R2.id.tvTabMine)
     TabView tabMine;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.main_activity_main;
@@ -45,15 +45,27 @@ public class MainActivity extends BaseActivity {
         mTabs = new TabView[]{tabHome, tabProject, tabMine};
         tabHome.setChecked(true);
 
+        Fragment homeFragment, projectFragment, mineFragment;
         try {
-            Fragment homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
-            Fragment projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
-            Fragment mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
-            fragments = new Fragment[]{homeFragment, projectFragment, mineFragment};
+            homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
         } catch (InitException e) {
-            ToastUtil.showShortToast("fragment init error :"+e.getMessage());
-            fragments = new Fragment[]{new Fragment(), new Fragment(), new Fragment()};
+            Log.d("111",e.getMessage());
+            homeFragment = InitExceptionFragment.newInstance(e.getMessage());
         }
+
+        try {
+            projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
+        } catch (InitException e) {
+            projectFragment = InitExceptionFragment.newInstance(e.getMessage());
+        }
+
+        try {
+            mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
+        } catch (InitException e) {
+            mineFragment = InitExceptionFragment.newInstance(e.getMessage());
+        }
+
+        fragments = new Fragment[]{homeFragment, projectFragment, mineFragment};
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragments[0]).show(fragments[0]).commitAllowingStateLoss();
         showFragment(0);
