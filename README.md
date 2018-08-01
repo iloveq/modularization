@@ -22,7 +22,7 @@ isLibraryRegister=true
 isLibraryWeb=true
 ```
 
-project / build.gradle :
+##### project / build.gradle :
 版本,签名,依赖
 ```
 buildscript {
@@ -93,7 +93,7 @@ task clean(type: Delete) {
 
 ##### 1：[app](https://github.com/woaigmz/modularization/blob/master/app/README.md)
 
-##### 2：library-common
+##### 2：[library-common](https://github.com/woaigmz/modularization/blob/master/library-common/README.md)
 
 ##### 3：[module-main](https://github.com/woaigmz/modularization/blob/master/module-main/README.md)
 
