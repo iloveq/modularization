@@ -8,6 +8,7 @@
 ### 组件化控制
 
 ##### project/gradle.properties:
+组件化开关 toggle
 
 ```
 isBuildAll=true
