@@ -94,11 +94,45 @@ task clean(type: Delete) {
 
 ##### 1：[app](https://github.com/woaigmz/modularization/blob/master/app/README.md)
 
+```
+1：空壳app，编译项目
+
+2：AndroidManifest 负责项目主进程等配置
+
+3：application 初始化，加载配置
+```
+
 ##### 2：[library-common](https://github.com/woaigmz/modularization/blob/master/library-common/README.md)
+
+```
+中间件
+
+1：作为公共library ，其他 module 根据情况依赖
+2：作为 common ，封装一些公共的行为和资源供 module 使用:
+        bean   目录 网络请求/操作数据库的公共容器
+        config 目录 版本/服务器/路由 配置信息
+        utils  目录 常用工具类
+        widget 目录 自定义控件，大部分模块在使用
+        base   中间层
+        interface
+           根据项目需求自行扩展 ...
+
+```
 
 ##### 3：[module-main](https://github.com/woaigmz/modularization/blob/master/module-main/README.md)
 
-##### 4：module-home
+```
+1：组件入口  SplashActivity  MainActivity 
+2：通过 ARouter 初始化 MainActivity 里的 3 个 模块的 Fragment (职责分离)(反射 newInstance)
+3：UI 上 使用 TabView ( 通过扩展 TextView 替代 TextView+ImageView) 将 NavigationBottomView 的 布局层次降低，减少 GPU 过度绘制
+4：配置 gradle 和 MainApp 配置 使模块可单独运行(单独运行时通过依赖 module-home/module-project/module-mine 和 ARouter)
+```
+
+##### 4：[module-home]()
+
+```
+1：通过初始化 AFrame 使用  Retrofit OKhttp3 Glide 等框架 和 MVP/base/utils/network-state-view/premission 等工具
+```
 
 ##### 5：module-project
 
