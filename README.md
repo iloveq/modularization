@@ -91,11 +91,11 @@ task clean(type: Delete) {
 
 ### 模块介绍
 
-##### 1：app
+##### 1：[app](https://github.com/woaigmz/modularization/blob/master/app/README.md)
 
 ##### 2：library-common
 
-##### 3： [module-main:](https://github.com/woaigmz/modularization/tree/master/module-main)
+##### 3：[module-main](https://github.com/woaigmz/modularization/tree/master/module-main)
 
 ##### 4：module-home
 
