@@ -1,7 +1,7 @@
 # modularization 安卓组件化demo
 可根据自己需求修改模块,感谢star issues follow ：) 
 
-### 项目简介机计划：
+### 项目简介及计划：
 ##### 1：使用 ARouter，ButterKnife，AFrame(rxjava2、okhttp3、base封装、常用util)
 ##### 2：每个module结构不限，可MVVM/MVP，可不同网络框架
 ##### 3：*//TODO*   组件化（module-share）、多进程（webview/push）、多进程通信、插件下发及加载（module-main的SplashActivity处理）
