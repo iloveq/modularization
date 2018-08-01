@@ -1,9 +1,10 @@
 package com.credithc.hhr.module_main.view.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.alibaba.android.arouter.exception.InitException;
@@ -13,9 +14,9 @@ import com.credithc.hhr.module_main.R;
 import com.credithc.hhr.module_main.R2;
 import com.credithc.hhr.module_main.view.fragment.InitExceptionFragment;
 import com.credithc.hhr.module_main.view.widget.TabView;
-import com.woaiqw.base.common.BaseActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -23,11 +24,12 @@ import butterknife.OnClick;
  * Created by haoran on 2018/7/26.
  */
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Fragment[] fragments;
     private TabView[] mTabs;
     private int currentTabIndex;
+
     @BindView(R2.id.tvTabHome)
     TabView tabHome;
     @BindView(R2.id.tvTabProject)
@@ -35,30 +37,26 @@ public class MainActivity extends BaseActivity {
     @BindView(R2.id.tvTabMine)
     TabView tabMine;
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.main_activity_main;
-    }
+    Fragment homeFragment, projectFragment, mineFragment;
 
     @Override
-    protected void afterCreate(Bundle bundle) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity_main);
+        ButterKnife.bind(this);
         mTabs = new TabView[]{tabHome, tabProject, tabMine};
         tabHome.setChecked(true);
 
-        Fragment homeFragment, projectFragment, mineFragment;
         try {
             homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
         } catch (InitException e) {
-            Log.d("111",e.getMessage());
             homeFragment = InitExceptionFragment.newInstance(e.getMessage());
         }
-
         try {
             projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
         } catch (InitException e) {
             projectFragment = InitExceptionFragment.newInstance(e.getMessage());
         }
-
         try {
             mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
         } catch (InitException e) {
@@ -106,5 +104,19 @@ public class MainActivity extends BaseActivity {
         if (view.getId() == R.id.tvTabMine) {
             showFragment(2);
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        for (int i = 0; i < mTabs.length; i++) {
+            mTabs[i] = null;
+            fragments[i] = null;
+        }
+        homeFragment = null;
+        projectFragment = null;
+        mineFragment = null;
+        currentTabIndex = 0;
     }
 }
