@@ -1,14 +1,15 @@
 # modularization 安卓组件化demo
-可根据自己需求修改模块,感谢star issues follow ：)
+可根据自己需求修改模块,感谢star issues follow ：) 
 
-### 项目简介
+### 项目简介机计划：
+##### 1：使用 ARouter，ButterKnife，AFrame(rxjava2、okhttp3、base封装、常用util)
+##### 2：每个module结构不限，可MVVM/MVP，可不同网络框架
+##### 3：*//TODO*   组件化（module-share）、多进程（webview/push）、多进程通信、插件下发及加载（module-main的SplashActivity处理）
 
-使用 ARouter(阿里路由)，ButterKnife(依赖注入框架)，AFrame(rxjava、okhttp3、base封装、常用util)
-
-### 组件化控制
+### 组件化控制：
 
 ##### project/gradle.properties:
-组件化开关 toggle
+(组件化开关 toggle)
 
 ```
 isBuildAll=true
@@ -24,7 +25,7 @@ isLibraryWeb=true
 ```
 
 ##### project / build.gradle :
-版本,签名,依赖
+(版本,签名,依赖)
 ```
 buildscript {
 
@@ -90,15 +91,13 @@ task clean(type: Delete) {
 
 
 
-### 模块介绍
+### 模块介绍：
 
 ##### 1：[app](https://github.com/woaigmz/modularization/blob/master/app/README.md)
 
 ```
 1：空壳app，编译项目
-
 2：AndroidManifest 负责项目主进程等配置
-
 3：application 初始化，加载配置
 ```
 
@@ -106,7 +105,6 @@ task clean(type: Delete) {
 
 ```
 中间件
-
 1：作为公共library ，其他 module 根据情况依赖
 2：作为 common ，封装一些公共的行为和资源供 module 使用:
         bean   目录 网络请求/操作数据库的公共容器
@@ -115,28 +113,28 @@ task clean(type: Delete) {
         widget 目录 自定义控件，大部分模块在使用
         base   中间层
         interface
-           根据项目需求自行扩展 ...
+        ... 根据项目需求自行扩展 ...
 
 ```
 
 ##### 3：[module-main](https://github.com/woaigmz/modularization/blob/master/module-main/README.md)
 
 ```
-1：组件入口  SplashActivity  MainActivity 
-2：通过 ARouter 初始化 MainActivity 里的 3 个 模块的 Fragment (职责分离)(反射 newInstance)
-3：UI 上 使用 TabView ( 通过扩展 TextView 替代 TextView+ImageView) 将 NavigationBottomView 的 布局层次降低，减少 GPU 过度绘制
-4：配置 gradle 和 MainApp 配置 使模块可单独运行(单独运行时通过依赖 module-home/module-project/module-mine 和 ARouter)
+1：组件入口/宿主加载插件入口  SplashActivity  MainActivity ..
+2：MainActivity 里通过 ARouter 初始化 的 3 个 不同模块的 Fragment (职责分离)(ARouter通过反射 newInstance出Fragment对象实例)
+3：使用 TabView ( 通过继承 TextView 替代 TextView+ImageView) 降低底部导航的布局层次，减少 GPU 过度绘制
+4：配置 gradle 和 MainApp 配置 使模块独立运行(单独运行时通过 toogle 开关 和 ARouter 解耦合)
 ```
 
 ##### 4：[module-home](https://github.com/woaigmz/modularization/blob/master/module-home/README.md)
 
 ```
-1：基于Glide4.0 封装的 ImageLoader 的使用
-2：AFrame 使用方法
-3：MVP 用法
-4：ARouter 配置 Fragment
+1：ImageLoader 的使用（基于Glide4.0 的封装）
+2：AFrame 的用法
+3：MVP 的用法
+4：ARouter 配置 HomeFragment  供 module-main 的 MainActivity 使用
 ```
-
+*__//TODO__*
 ##### 5：module-project
 
 ##### 6：module-mine
