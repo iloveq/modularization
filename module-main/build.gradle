@@ -47,4 +47,10 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
     annotationProcessor "com.alibaba:arouter-compiler:${versions.arouter_compiler}"
     implementation project(':library-common')
+
+    if(!isLibraryMain.toBoolean()){
+        implementation project(':module-home')
+        implementation project(':module-project')
+        implementation project(':module-mine')
+    }
 }
