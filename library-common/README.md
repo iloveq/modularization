@@ -16,7 +16,7 @@ dependencies {
 
     api "com.scwang.smartrefresh:SmartRefreshLayout:${versions.refresh_layout}"
     api "com.scwang.smartrefresh:SmartRefreshHeader:${versions.refresh_header}"
-
+    //Aframe 含rxjava retrofit okhttp3 等 https://github.com/woaigmz/AFrame
     api "com.github.woaigmz:AFrame:${versions.aframe}"
 
     api "com.alibaba:arouter-api:${versions.arouter_api}"
