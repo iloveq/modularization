@@ -128,10 +128,13 @@ task clean(type: Delete) {
 4：配置 gradle 和 MainApp 配置 使模块可单独运行(单独运行时通过依赖 module-home/module-project/module-mine 和 ARouter)
 ```
 
-##### 4：[module-home]()
+##### 4：[module-home](https://github.com/woaigmz/modularization/blob/master/module-home/README.md)
 
 ```
-1：通过初始化 AFrame 使用  Retrofit OKhttp3 Glide 等框架 和 MVP/base/utils/network-state-view/premission 等工具
+1：基于Glide4.0 封装的 ImageLoader 的使用
+2：AFrame 使用方法
+3：MVP 用法
+4：ARouter 配置 Fragment
 ```
 
 ##### 5：module-project
