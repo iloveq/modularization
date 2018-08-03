@@ -1,1 +1,1 @@
-include ':app', ':module-login', ':module-home', ':module-project', ':module-mine', ':module-register', ':module-web', ':library-common', ':module-main'
+include ':app', ':module-login', ':module-home', ':module-project', ':module-mine', ':module-register', ':module-web', ':library-common', ':module-main', ':sdk-share'
