@@ -30,6 +30,11 @@ public class ShareSdkProxy {
 
     }
 
+    /**
+     * the channel turn can inflect the turn of IShareView
+     * @param shareChannel
+     * @return
+     */
     public static IShareView createShareDialog(int[] shareChannel) {
         return null;
     }
