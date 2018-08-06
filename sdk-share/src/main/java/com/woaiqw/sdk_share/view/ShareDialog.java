@@ -51,15 +51,15 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
         lp.gravity = Gravity.BOTTOM;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
-        initViewAndClick(dialog, getArguments().getIntArray(KEY));
+        initViewAndClick(dialog);
         return dialog;
     }
 
-    private void initViewAndClick(Dialog view, int[] arr) {
+    private void initViewAndClick(Dialog view) {
         mRecyclerView = view.findViewById(R.id.recycler_view_share);
         tvShareCancel = view.findViewById(R.id.tv_share_cancel);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setAdapter(new ShareAdapter(arr));
+        mRecyclerView.setAdapter(new ShareAdapter(getArguments().getIntArray(KEY)));
         tvShareCancel.setOnClickListener(this);
     }
 
