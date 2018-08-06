@@ -43,5 +43,5 @@ dependencies {
         implementation project(':module-project')
         implementation project(':module-register')
     }
-    implementation project(':sdk-share')
+
 }

@@ -18,6 +18,8 @@ import com.woaiqw.base.AFrameBinder;
 import com.woaiqw.base.AFrameProxy;
 import com.woaiqw.base.common.BaseApp;
 import com.woaiqw.base.network.OkHttpHelper;
+import com.woaiqw.base.utils.FileHelper;
+import com.woaiqw.sdk_share.ShareSdkProxy;
 
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
@@ -91,5 +93,8 @@ public class App extends BaseApp {
                 return RxJava2CallAdapterFactory.create();
             }
         });
+
+        ShareSdkProxy.getInstance().init(this,new String[]{"100490958","wx9de3fd98743275f6","378367946"}, FileHelper.get().getCache().getPath());
+
     }
 }

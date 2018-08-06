@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sdk-Share</string>
+    <string name="share_cancel">取消</string>
 </resources>

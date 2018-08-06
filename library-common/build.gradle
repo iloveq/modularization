@@ -43,4 +43,6 @@ dependencies {
 
     api "com.android.support:multidex:${versions.dex}"
 
+    api project(':sdk-share')
+
 }
