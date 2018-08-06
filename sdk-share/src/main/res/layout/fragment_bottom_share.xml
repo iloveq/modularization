@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/_e5ffffff">
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp30"
         android:layout_marginBottom="@dimen/dp10"
         android:id="@+id/recycler_view_share"
         android:layout_width="match_parent"
