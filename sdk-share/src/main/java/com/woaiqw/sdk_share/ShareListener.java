@@ -1,4 +1,4 @@
-package com.woaiqw.sdk_share.share;
+package com.woaiqw.sdk_share;
 
 /**
  * Created by haoran on 2018/8/3.

@@ -145,7 +145,26 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onShareClick(pos);
+                    switch (name[pos]) {
+                        case "微信":
+                            listener.onShareClick(ShareChannel.CHANNEL_WECHAT);
+                            break;
+                        case "朋友圈":
+                            listener.onShareClick(ShareChannel.CHANNEL_WECHAT_MOMENT);
+                            break;
+                        case "QQ":
+                            listener.onShareClick(ShareChannel.CHANNEL_QQ);
+                            break;
+                        case "QQ空间":
+                            listener.onShareClick(ShareChannel.CHANNEL_QQ_ZONE);
+                            break;
+                        case "微博":
+                            listener.onShareClick(ShareChannel.CHANNEL_WEIBO);
+                            break;
+                        case "更多":
+                            listener.onShareClick(ShareChannel.CHANNEL_MORE);
+                            break;
+                    }
                 }
             });
         }

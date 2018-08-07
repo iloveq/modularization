@@ -22,9 +22,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${versions.support_library}"
     implementation "com.android.support:recyclerview-v7:${versions.support_library}"
     compile 'com.sina.weibo.sdk:core:4.1.4:openDefaultRelease@aar'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
+    implementation files('libs/disklrucache-2.0.2.jar')
 }
