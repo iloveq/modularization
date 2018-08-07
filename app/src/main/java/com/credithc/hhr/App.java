@@ -96,7 +96,7 @@ public class App extends BaseApp {
             }
         });
 
-        ShareSdkProxy.getInstance().init(this,new String[]{"100490958","wx9de3fd98743275f6","378367946"});
+        ShareSdkProxy.getInstance().init(this,new String[]{"214506","wxa552e31d6839de85","1550938859"});
 
     }
 }
