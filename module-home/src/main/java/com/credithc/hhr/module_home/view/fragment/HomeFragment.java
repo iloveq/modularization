@@ -35,8 +35,8 @@ public class HomeFragment extends BaseFragment {
         tv_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IShareView shareDialog = ShareSdkProxy.getInstance().createShareDialog(new int[]{ShareChannel.CHANNEL_QQ, ShareChannel.CHANNEL_WEIBO, ShareChannel.CHANNEL_WECHAT_MOMENT, ShareChannel.CHANNEL_MORE}, 3);
-                ShareSdkProxy.getInstance().setOnShareClickListener(shareDialog, getActivity(), new ShareBean("分享了", "今天天气不错", "", R.drawable.ic_launcher, "http://www.baidu.com"));
+                IShareView shareDialog = ShareSdkProxy.getInstance().createShareDialog(new int[]{ShareChannel.CHANNEL_QQ, ShareChannel.CHANNEL_WEIBO, ShareChannel.CHANNEL_WECHAT_MOMENT, ShareChannel.CHANNEL_QQ_ZONE}, 4);
+                ShareSdkProxy.getInstance().setOnShareClickListener(shareDialog, getActivity(), new ShareBean("分享了", "今天天气不错", "http://118.89.233.211:3000/images/1530106897838_.jpg", R.drawable.ic_launcher, "http://www.baidu.com"));
                 shareDialog.show(getFragmentManager());
             }
         });
