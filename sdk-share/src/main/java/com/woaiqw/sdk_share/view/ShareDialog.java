@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,7 +29,9 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
     private TextView tvShareCancel;
     private RecyclerView mRecyclerView;
 
-    private static final String KEY = "share_dialog";
+    private static final String KEY = "share_dialog_channel";
+    private static final String CHANNEL = "channel";
+    private static final String COUNT = "span_count";
     private OnShareClickListener listener;
 
     @Override
@@ -51,24 +53,23 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
         lp.gravity = Gravity.BOTTOM;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
-        initViewAndClick(dialog);
+        mRecyclerView = dialog.findViewById(R.id.recycler_view_share);
+        tvShareCancel = dialog.findViewById(R.id.tv_share_cancel);
+        int[] arr = getArguments().getIntArray(CHANNEL);
+        int count = getArguments().getInt(COUNT);
+        assert arr != null;
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), count == 0 ? 4 : count));
+        mRecyclerView.setAdapter(new ShareAdapter(arr));
+        tvShareCancel.setOnClickListener(this);
         return dialog;
     }
 
-    private void initViewAndClick(Dialog view) {
-        mRecyclerView = view.findViewById(R.id.recycler_view_share);
-        tvShareCancel = view.findViewById(R.id.tv_share_cancel);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        int[] arr = getArguments().getIntArray(KEY);
-        assert arr != null;
-        mRecyclerView.setAdapter(new ShareAdapter(arr));
-        tvShareCancel.setOnClickListener(this);
-    }
 
     @Override
-    public IShareView createShareDialog(int[] shareChannel) {
+    public IShareView createShareDialog(int[] shareChannel, int spanCount) {
         Bundle bundle = new Bundle();
-        bundle.putIntArray(KEY, shareChannel);
+        bundle.putIntArray(CHANNEL, shareChannel);
+        bundle.putInt(COUNT, spanCount);
         ShareDialog dialog = new ShareDialog();
         dialog.setArguments(bundle);
         return dialog;

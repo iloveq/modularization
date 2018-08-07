@@ -42,8 +42,8 @@ public class ShareSdkProxy {
      * @return
      * @link ShareChannel.java
      */
-    public IShareView createShareDialog(int[] shareChannel) {
-        return new ShareDialog().createShareDialog(shareChannel);
+    public IShareView createShareDialog(int[] shareChannel,int spanCount) {
+        return new ShareDialog().createShareDialog(shareChannel,spanCount);
     }
 
     public void setOnShareClickListener(IShareView iShareView) {

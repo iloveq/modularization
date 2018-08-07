@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 
 public interface IShareView {
 
-    IShareView createShareDialog(int[] shareChannel);
+    IShareView createShareDialog(int[] shareChannel,int spanCount);
 
     int show(FragmentTransaction transaction);
 
