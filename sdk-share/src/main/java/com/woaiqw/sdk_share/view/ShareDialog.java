@@ -97,7 +97,7 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
         dismissAllowingStateLoss();
     }
 
-    public static ShareDialog get() {
+    public static IShareView get() {
         return new ShareDialog();
     }
 
