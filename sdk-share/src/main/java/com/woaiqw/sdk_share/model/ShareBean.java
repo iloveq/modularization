@@ -3,7 +3,7 @@ package com.woaiqw.sdk_share.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.woaiqw.sdk_share.R;
+import com.credithc.hhr.sdk_share.R;
 
 /**
  * Created by haoran on 2018/8/7.

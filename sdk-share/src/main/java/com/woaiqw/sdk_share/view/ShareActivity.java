@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.sina.weibo.sdk.share.WbShareCallback;
-import com.woaiqw.sdk_share.R;
+import com.credithc.hhr.sdk_share.R;
 import com.woaiqw.sdk_share.ShareChannel;
 import com.woaiqw.sdk_share.ShareListener;
 import com.woaiqw.sdk_share.ShareStatus;

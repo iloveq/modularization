@@ -17,7 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.woaiqw.sdk_share.R;
+import com.credithc.hhr.sdk_share.R;
 import com.woaiqw.sdk_share.ShareChannel;
 import com.woaiqw.sdk_share.ShareSdkProxy;
 
