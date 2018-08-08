@@ -145,4 +145,4 @@ task clean(type: Delete) {
 
 ##### 9：module-web
 
-##### 10：module-share
+##### 10：[module-share](https://github.com/woaigmz/modularization/blob/master/sdk-share/README.md)
