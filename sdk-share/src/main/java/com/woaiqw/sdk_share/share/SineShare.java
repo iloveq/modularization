@@ -24,8 +24,7 @@ import com.woaiqw.sdk_share.utils.BitmapAsyncTask;
 
 public class SineShare {
 
-
-    WbShareHandler mWbShareHandler;
+    private WbShareHandler wbShareHandler;
     private Activity mActivity;
 
     public SineShare(Activity activity, String appKey) {
@@ -40,77 +39,68 @@ public class SineShare {
         Application application = activity.getApplication();
         WbSdk.install(application, new AuthInfo(application, appKey, redirectUrl, scope));
         this.mActivity = activity;
-        mWbShareHandler = new WbShareHandler(activity);
-        mWbShareHandler.registerApp();
+        wbShareHandler = new WbShareHandler(activity);
+        wbShareHandler.registerApp();
     }
 
     public void doResultIntent(Intent intent, WbShareCallback callback) {
-        mWbShareHandler.doResultIntent(intent, callback);
+        wbShareHandler.doResultIntent(intent, callback);
     }
 
 
     public void sendTextMessage(IShareModel share) {
+
         String title = share.getTitle();
         String content = share.getContent();
         String actionUrl = share.getActionUrl();
-
         WeiboMultiMessage message = new WeiboMultiMessage();
         TextObject textObject = new TextObject();
         textObject.title = title;
         textObject.text = content;
         textObject.actionUrl = actionUrl;
         message.textObject = textObject;
-
-        mWbShareHandler.shareMessage(message, false);
+        wbShareHandler.shareMessage(message, false);
 
     }
 
 
     public void sendWebShareMessage(IShareModel share) {
+
         final String title = share.getTitle();
         final String content = share.getContent();
         final String actionUrl = share.getActionUrl();
         final String imgUrl = share.getImgUrl();
         final int drawableId = share.getDrawableId();
         final WeiboMultiMessage message = new WeiboMultiMessage();
-
-
         TextObject textObject = new TextObject();
         textObject.title = title;
         textObject.text = content;
         textObject.actionUrl = actionUrl;
         message.textObject = textObject;
-
-
         if (TextUtils.isEmpty(imgUrl)) {
-
             Bitmap bmp = BitmapFactory.decodeResource(mActivity.getResources(), drawableId);
             ImageObject imageObject = new ImageObject();
             imageObject.setImageObject(bmp);
             message.imageObject = imageObject;
-            mWbShareHandler.shareMessage(message, false);
+            wbShareHandler.shareMessage(message, false);
 
         } else {
             new BitmapAsyncTask(mActivity, imgUrl, new BitmapAsyncTask.OnBitmapListener() {
                 @Override
                 public void onSuccess(Bitmap bitmap) {
-
                     ImageObject imageObject = new ImageObject();
                     imageObject.setImageObject(bitmap);
                     message.imageObject = imageObject;
-                    mWbShareHandler.shareMessage(message, false);
-
+                    wbShareHandler.shareMessage(message, false);
                 }
 
                 @Override
                 public void onException(Exception exception) {
-
                     Bitmap bmp = BitmapFactory.decodeResource(mActivity.getResources(), drawableId);
                     ImageObject imageObject = new ImageObject();
                     imageObject.setImageObject(bmp);
                     message.imageObject = imageObject;
-                    mWbShareHandler.shareMessage(message, false);
-
+                    wbShareHandler.shareMessage(message, false);
                 }
             }).execute();
         }
@@ -130,24 +120,17 @@ public class SineShare {
         textObject.text = content;
         textObject.actionUrl = actionUrl;
         message.textObject = textObject;
-
         final ImageObject imageObject = new ImageObject();
-
         if (TextUtils.isEmpty(imgUrl)) {
-
             Bitmap bmp = BitmapFactory.decodeResource(mActivity.getResources(), drawableId);
             imageObject.setImageObject(bmp);
-
         } else {
-
             new BitmapAsyncTask(mActivity, imgUrl, new BitmapAsyncTask.OnBitmapListener() {
                 @Override
                 public void onSuccess(Bitmap bitmap) {
-
                     imageObject.setImageObject(bitmap);
                     message.imageObject = imageObject;
-                    mWbShareHandler.shareMessage(message, false);
-
+                    wbShareHandler.shareMessage(message, false);
                 }
 
                 @Override
@@ -156,12 +139,12 @@ public class SineShare {
                     Bitmap bmp = BitmapFactory.decodeResource(mActivity.getResources(), drawableId);
                     imageObject.setImageObject(bmp);
                     message.imageObject = imageObject;
-                    mWbShareHandler.shareMessage(message, false);
+                    wbShareHandler.shareMessage(message, false);
 
                 }
             }).execute();
-
         }
+
     }
 
 }

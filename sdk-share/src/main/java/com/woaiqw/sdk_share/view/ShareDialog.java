@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.woaiqw.sdk_share.R;
 import com.woaiqw.sdk_share.ShareChannel;
+import com.woaiqw.sdk_share.ShareSdkProxy;
 
 /**
  * Created by haoran on 2018/8/6.
@@ -32,10 +33,10 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
     private static final String KEY = "share_dialog_channel";
     private static final String CHANNEL = "channel";
     private static final String COUNT = "span_count";
-    private OnShareClickListener listener;
+    private ShareSdkProxy.OnShareClickListener listener;
 
     @Override
-    public void setOnShareClickListener(OnShareClickListener listener) {
+    public void setOnShareClickListener(ShareSdkProxy.OnShareClickListener listener) {
         this.listener = listener;
     }
 

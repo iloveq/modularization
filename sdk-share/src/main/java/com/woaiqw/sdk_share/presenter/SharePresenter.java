@@ -6,49 +6,63 @@ import com.woaiqw.sdk_share.ShareChannel;
 import com.woaiqw.sdk_share.model.ShareBean;
 import com.woaiqw.sdk_share.view.ShareActivity;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by haoran on 2018/8/7.
  */
 
 public class SharePresenter implements ISharePresenter {
 
-    private static final class Holder {
-        private static SharePresenter IN = new SharePresenter();
+
+    private static volatile SharePresenter presenter = null;
+
+    public static ISharePresenter start(Activity activity) {
+        if (presenter == null) {
+            synchronized (SharePresenter.class) {
+                if (presenter == null)
+                    presenter = new SharePresenter(activity);
+            }
+        }
+        return presenter;
     }
 
+    private SharePresenter(Activity activity) {
+        this.context = new WeakReference<>(activity);
+    }
 
-    private void startActivityForResult(Activity activity, int type, ShareBean entry) {
+    private void startActivityForResult(int type, ShareBean entry) {
+        Activity activity = context.get();
+        assert activity != null : " activity weak reference maybe a null object ";
         activity.startActivityForResult(ShareActivity.getIntent(activity, entry, type), type);
     }
 
+    private WeakReference<Activity> context;
 
-    public static ISharePresenter start() {
-        return Holder.IN;
+    @Override
+    public void onShareWeiBo(ShareBean entry) {
+        startActivityForResult(ShareChannel.CHANNEL_WEIBO, entry);
     }
 
     @Override
-    public void onShareWeiBo(Activity context, ShareBean entry) {
-        startActivityForResult(context, ShareChannel.CHANNEL_WEIBO, entry);
+    public void onShareWxCircle(ShareBean entry) {
+        startActivityForResult(ShareChannel.CHANNEL_WECHAT_MOMENT, entry);
     }
 
     @Override
-    public void onShareWxCircle(Activity context, ShareBean entry) {
-        startActivityForResult(context, ShareChannel.CHANNEL_WECHAT_MOMENT, entry);
+    public void onShareWx(ShareBean entry) {
+        startActivityForResult(ShareChannel.CHANNEL_WECHAT, entry);
     }
 
     @Override
-    public void onShareWx(Activity context, ShareBean entry) {
-        startActivityForResult(context, ShareChannel.CHANNEL_WECHAT, entry);
+    public void onShareQQ(ShareBean entry) {
+        startActivityForResult(ShareChannel.CHANNEL_QQ, entry);
     }
 
     @Override
-    public void onShareQQ(Activity context, ShareBean entry) {
-        startActivityForResult(context, ShareChannel.CHANNEL_QQ, entry);
+    public void onShareQZone(ShareBean entry) {
+        startActivityForResult(ShareChannel.CHANNEL_QQ_ZONE, entry);
     }
 
-    @Override
-    public void onShareQZone(Activity context, ShareBean entry) {
-        startActivityForResult(context, ShareChannel.CHANNEL_QQ_ZONE, entry);
-    }
 
 }

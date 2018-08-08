@@ -3,6 +3,8 @@ package com.woaiqw.sdk_share.view;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.woaiqw.sdk_share.ShareSdkProxy;
+
 public interface IShareView {
 
     IShareView createShareDialog(int[] shareChannel,int spanCount);
@@ -13,5 +15,5 @@ public interface IShareView {
 
     void dismissDialog();
 
-    void setOnShareClickListener(OnShareClickListener listener);
+    void setOnShareClickListener(ShareSdkProxy.OnShareClickListener listener);
 }

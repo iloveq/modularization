@@ -10,6 +10,6 @@ public interface ShareListener {
 
     void onShareCancel();
 
-    void onShareFail(String msg);
+    void onShareFail();
 
 }

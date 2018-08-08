@@ -8,14 +8,15 @@ import android.os.Bundle;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.woaiqw.sdk_share.R;
 import com.woaiqw.sdk_share.ShareChannel;
-import com.woaiqw.sdk_share.ShareSdkProxy;
+import com.woaiqw.sdk_share.ShareListener;
 import com.woaiqw.sdk_share.model.AppId;
 import com.woaiqw.sdk_share.model.ShareBean;
 import com.woaiqw.sdk_share.share.QQShare;
 import com.woaiqw.sdk_share.share.SineShare;
 import com.woaiqw.sdk_share.share.WXShare;
-import com.woaiqw.sdk_share.ShareListener;
 import com.woaiqw.sdk_share.utils.SerializeUtils;
+
+import static com.woaiqw.sdk_share.utils.Utils.getSerializePath;
 
 
 public class ShareActivity extends Activity implements WbShareCallback, ShareListener {
@@ -30,8 +31,8 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     private static final String SHARE_CHANNEL = "ShareChannel";
 
 
-    public static final String RESULT_CHANNLE = "result_channle";
-    public static final String RESULT_STATUS = "result_message";
+    public static final String RESULT_CHANNEL = "result_channel";
+    public static final String RESULT_STATUS = "result_msg";
 
     public static Intent getIntent(Context context, ShareBean share, int type) {
         Intent intent = new Intent(context, ShareActivity.class);
@@ -41,12 +42,12 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     }
 
 
-    int mShareType;
-    WXShare mWXShare;
-    SineShare mSineShare;
-    QQShare mQQShare;
-    AppId appId;
-    ShareBean shareBean;
+    private int mShareType;
+    private WXShare mWXShare;
+    private SineShare mSineShare;
+    private QQShare mQQShare;
+    private AppId appId;
+    private ShareBean shareBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
         Intent intent = getIntent();
         shareBean = intent.getParcelableExtra(SHARE_ENTRY);
         mShareType = intent.getIntExtra(SHARE_CHANNEL, -1);
-        appId = (AppId) SerializeUtils.deserialization(ShareSdkProxy.getInstance().getSerializePath(this.getApplication()));
+        appId = (AppId) SerializeUtils.deserialization(getSerializePath(this.getApplication()));
         switch (mShareType) {
             case ShareChannel.CHANNEL_WECHAT:
                 weiXinFriend();
@@ -96,19 +97,19 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     protected void onDestroy() {
         super.onDestroy();
         if (mWXShare != null) {
-            mWXShare.unregisterWeixinReceiver();
+            mWXShare.unregisterWXReceiver();
         }
     }
 
     private void weiXinFriend() {
         mWXShare = new WXShare(this, appId.getWECHAT(), false);
-        mWXShare.registerWeixinReceiver();
+        mWXShare.registerWXReceiver();
         mWXShare.sendWebShareMessage(shareBean, this);
     }
 
     private void weiXinCircle() {
         mWXShare = new WXShare(this, appId.getWECHAT(), true);
-        mWXShare.registerWeixinReceiver();
+        mWXShare.registerWXReceiver();
         mWXShare.sendWebShareMessage(shareBean, this);
     }
 
@@ -140,7 +141,7 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
 
     @Override
     public void onWbShareFail() {
-        onShareFail("分享失败");
+        onShareFail();
     }
 
     @Override
@@ -155,13 +156,13 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     }
 
     @Override
-    public void onShareFail(String message) {
+    public void onShareFail() {
         finishWithResult(SHARE_STATUS_ERROR);
     }
 
     public void finishWithResult(final int status) {
         Intent intent = new Intent();
-        intent.putExtra(RESULT_CHANNLE, mShareType);
+        intent.putExtra(RESULT_CHANNEL, mShareType);
         intent.putExtra(RESULT_STATUS, status);
         setResult(Activity.RESULT_OK, intent);
         finish();

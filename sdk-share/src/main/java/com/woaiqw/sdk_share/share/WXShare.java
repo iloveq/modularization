@@ -20,7 +20,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.woaiqw.sdk_share.ShareListener;
 import com.woaiqw.sdk_share.model.IShareModel;
 import com.woaiqw.sdk_share.utils.BitmapAsyncTask;
-import com.woaiqw.sdk_share.utils.Utils;
+
+import static com.woaiqw.sdk_share.utils.Utils.bmpToByteArray;
+import static com.woaiqw.sdk_share.utils.Utils.getWxShareBitmap;
 
 
 /**
@@ -29,36 +31,42 @@ import com.woaiqw.sdk_share.utils.Utils;
 
 public class WXShare {
 
-    private static final String ACTION_WEIXIN_CALLBACK = "com.credithc.hhr.action.WEIXIN_CALLBACK";
-    private static final String EXTRA_WEIXIN_RESULT = "weixin_result";
+    private static final String ACTION_WX_CALLBACK = "com.credithc.hhr.action.WX_CALLBACK";
+    private static final String EXTRA_WX_RESULT = "wx_result";
 
-    private final IWXAPI mWxapi;
-    private WeixinShareReceiver receiver;
+    private final IWXAPI iwxapi;
+    private WXShareReceiver receiver;
     private Context context;
     private ShareListener shareListener;
     private boolean isTimeLine;
 
-    //flag true：好友 false：朋友圈
+    /**
+     * constructor for WXShare
+     *
+     * @param context context
+     * @param appId   微信 id
+     * @param flag    true：好友 false：朋友圈
+     */
     public WXShare(Context context, String appId, boolean flag) {
         this.context = context;
-        mWxapi = WXAPIFactory.createWXAPI(context, appId);
+        iwxapi = WXAPIFactory.createWXAPI(context, appId);
         this.isTimeLine = flag;
     }
 
     /**
      * 注册微信回调广播
      */
-    public void registerWeixinReceiver() {
-        receiver = new WeixinShareReceiver();
+    public void registerWXReceiver() {
+        receiver = new WXShareReceiver();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_WEIXIN_CALLBACK);
+        intentFilter.addAction(ACTION_WX_CALLBACK);
         context.registerReceiver(receiver, intentFilter);
     }
 
     /**
      * unregister
      */
-    public void unregisterWeixinReceiver() {
+    public void unregisterWXReceiver() {
         if (null != context && null != receiver) {
             context.unregisterReceiver(receiver);
         }
@@ -84,7 +92,7 @@ public class WXShare {
         req.message = msg;
         req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
 
-        mWxapi.sendReq(req);
+        iwxapi.sendReq(req);
     }
 
     public void sendImageMessage(IShareModel shareEntry, ShareListener listener) {
@@ -99,12 +107,12 @@ public class WXShare {
             public void onSuccess(Bitmap bitmap) {
                 WXImageObject imgObj = new WXImageObject(bitmap);
                 msg.mediaObject = imgObj;
-                msg.setThumbImage(Utils.getWxShareBitmap(bitmap));
+                msg.setThumbImage(getWxShareBitmap(bitmap));
                 SendMessageToWX.Req req = new SendMessageToWX.Req();
                 req.transaction = buildTransaction("img");
                 req.message = msg;
                 req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-                mWxapi.sendReq(req);
+                iwxapi.sendReq(req);
             }
 
             @Override
@@ -115,7 +123,7 @@ public class WXShare {
 
                 Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
                 bmp.recycle();
-                msg.thumbData = Utils.bmpToByteArray(thumbBmp, true);
+                msg.thumbData = bmpToByteArray(thumbBmp, true);
 
                 msg.mediaObject = imgObj;
 
@@ -125,7 +133,7 @@ public class WXShare {
                 req.transaction = buildTransaction("img");
                 req.message = msg;
                 req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-                mWxapi.sendReq(req);
+                iwxapi.sendReq(req);
             }
         }).execute();
     }
@@ -147,12 +155,12 @@ public class WXShare {
             wxMediaMessage.description = content;
             Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
             bmp.recycle();
-            wxMediaMessage.thumbData = Utils.bmpToByteArray(thumbBmp, true);
+            wxMediaMessage.thumbData = bmpToByteArray(thumbBmp, true);
             wxMediaMessage.mediaObject = new WXWebpageObject(actionUrl);
             req.transaction = String.valueOf(System.currentTimeMillis());
             req.message = wxMediaMessage;
             req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-            mWxapi.sendReq(req);
+            iwxapi.sendReq(req);
 
         } else {
 
@@ -163,14 +171,14 @@ public class WXShare {
                     WXMediaMessage wxMediaMessage = new WXMediaMessage();
                     wxMediaMessage.title = title;
                     wxMediaMessage.description = content;
-                    wxMediaMessage.setThumbImage(Utils.getWxShareBitmap(bitmap));
+                    wxMediaMessage.setThumbImage(getWxShareBitmap(bitmap));
 
                     wxMediaMessage.mediaObject = new WXWebpageObject(actionUrl);
 
                     req.transaction = String.valueOf(System.currentTimeMillis());
                     req.message = wxMediaMessage;
                     req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-                    mWxapi.sendReq(req);
+                    iwxapi.sendReq(req);
                 }
 
                 @Override
@@ -184,14 +192,14 @@ public class WXShare {
 
                     Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
                     bmp.recycle();
-                    wxMediaMessage.thumbData = Utils.bmpToByteArray(thumbBmp, true);
+                    wxMediaMessage.thumbData = bmpToByteArray(thumbBmp, true);
 
                     wxMediaMessage.mediaObject = new WXWebpageObject(actionUrl);
 
                     req.transaction = String.valueOf(System.currentTimeMillis());
                     req.message = wxMediaMessage;
                     req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-                    mWxapi.sendReq(req);
+                    iwxapi.sendReq(req);
 
                 }
             }).execute();
@@ -203,20 +211,20 @@ public class WXShare {
 
     public static void sendBroadcast(Context context, int errCode) {
         Intent intent = new Intent();
-        intent.setAction(ACTION_WEIXIN_CALLBACK);
-        intent.putExtra(EXTRA_WEIXIN_RESULT, errCode);
+        intent.setAction(ACTION_WX_CALLBACK);
+        intent.putExtra(EXTRA_WX_RESULT, errCode);
         context.sendBroadcast(intent);
     }
 
     /**
      * 微信分享回调广播
      */
-    private class WeixinShareReceiver extends BroadcastReceiver {
+    private class WXShareReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra(EXTRA_WEIXIN_RESULT)) {
-                int errCode = intent.getIntExtra(EXTRA_WEIXIN_RESULT, BaseResp.ErrCode.ERR_USER_CANCEL);
-                Log.w("WeixinShareReceiver", "errCode:" + errCode);
+            if (intent.hasExtra(EXTRA_WX_RESULT)) {
+                int errCode = intent.getIntExtra(EXTRA_WX_RESULT, BaseResp.ErrCode.ERR_USER_CANCEL);
+                Log.w("WXShareReceiver", "errCode:" + errCode);
                 switch (errCode) {
                     case BaseResp.ErrCode.ERR_OK:
                         if (shareListener != null)
@@ -228,7 +236,7 @@ public class WXShare {
                         break;
                     default:
                         if (shareListener != null)
-                            shareListener.onShareFail("分享失败");
+                            shareListener.onShareFail();
                         break;
                 }
             }

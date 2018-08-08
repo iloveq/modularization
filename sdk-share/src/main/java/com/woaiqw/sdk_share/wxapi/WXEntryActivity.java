@@ -9,10 +9,11 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.woaiqw.sdk_share.ShareSdkProxy;
 import com.woaiqw.sdk_share.model.AppId;
 import com.woaiqw.sdk_share.share.WXShare;
 import com.woaiqw.sdk_share.utils.SerializeUtils;
+
+import static com.woaiqw.sdk_share.utils.Utils.getSerializePath;
 
 
 /**
@@ -26,7 +27,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppId appId = (AppId) SerializeUtils.deserialization(ShareSdkProxy.getInstance().getSerializePath(this.getApplication()));
+        AppId appId = (AppId) SerializeUtils.deserialization(getSerializePath(this.getApplication()));
         mWxapi = WXAPIFactory.createWXAPI(this, appId.getWECHAT());
         mWxapi.handleIntent(getIntent(), this);
     }

@@ -1,9 +1,12 @@
 package com.woaiqw.sdk_share.utils;
 
+import android.app.Application;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -12,6 +15,18 @@ import java.security.NoSuchAlgorithmException;
  */
 
 public class Utils {
+
+    public static String getSerializePath(Application app) {
+        File dir;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            dir = app.getExternalFilesDir("share-sdk");
+        } else {
+            dir = app.getCacheDir();
+        }
+        assert dir != null;
+        File serializeFile = new File(dir, "sdk.txt");
+        return serializeFile.getAbsolutePath();
+    }
 
 
     public static Bitmap getWxShareBitmap(Bitmap targetBitmap) {
@@ -39,7 +54,7 @@ public class Utils {
     }
 
 
-    public static final String md5(String content) {
+    static String md5(String content) {
         try {
             if (TextUtils.isEmpty(content)) {
                 return "";

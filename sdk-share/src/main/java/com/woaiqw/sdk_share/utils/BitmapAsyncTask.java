@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
-
 import com.jakewharton.disklrucache.DiskLruCache;
 
 import java.io.BufferedInputStream;
@@ -15,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+
+import static com.woaiqw.sdk_share.utils.Utils.md5;
 
 /**
  * Created by haoran on 2018/8/3.
@@ -31,7 +32,7 @@ public class BitmapAsyncTask extends AbstractAsyncTask<Bitmap> {
         this.listener = listener;
         try {
             File cacheFile;
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {//如果已经挂载
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 cacheFile = context.getExternalFilesDir("bitmap");
             } else {
                 cacheFile = context.getCacheDir();
@@ -45,7 +46,7 @@ public class BitmapAsyncTask extends AbstractAsyncTask<Bitmap> {
     @Override
     protected Bitmap doLoadData() throws Exception {
 
-        String key = Utils.md5(urlStr);
+        String key = md5(urlStr);
         DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
 
         Log.w("BitmapTask", urlStr + " snapshot:" + (snapshot == null) + " key:" + key);
@@ -55,11 +56,12 @@ public class BitmapAsyncTask extends AbstractAsyncTask<Bitmap> {
 
             URL url = new URL(urlStr);
             InputStream is = url.openStream();
-            // 将InputStream变为Bitmap
+
             Bitmap bitmap = getSampleBitmap(is, 640, 640);
             is.close();
 
             OutputStream out = editor.newOutputStream(0);
+            assert bitmap != null;
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             try {
                 out.flush();
@@ -92,19 +94,17 @@ public class BitmapAsyncTask extends AbstractAsyncTask<Bitmap> {
         } catch (IOException e) {
             return null;
         }
-
-
         Bitmap bitmap = BitmapFactory.decodeStream(stream, null, options);
         return bitmap;
     }
 
-    static void calculateInSampleSize(int reqWidth, int reqHeight, BitmapFactory.Options options, boolean centerInside) {
+    private static void calculateInSampleSize(int reqWidth, int reqHeight, BitmapFactory.Options options, boolean centerInside) {
         calculateInSampleSize(reqWidth, reqHeight, options.outWidth, options.outHeight, options,
                 centerInside);
     }
 
-    static void calculateInSampleSize(int reqWidth, int reqHeight, int width, int height,
-                                      BitmapFactory.Options options, boolean centerInside) {
+    private static void calculateInSampleSize(int reqWidth, int reqHeight, int width, int height,
+                                              BitmapFactory.Options options, boolean centerInside) {
         int sampleSize = 1;
         if (height > reqHeight || width > reqWidth) {
             final int heightRatio;

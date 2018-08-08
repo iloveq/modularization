@@ -2,17 +2,15 @@ package com.woaiqw.sdk_share;
 
 import android.app.Activity;
 import android.app.Application;
-import android.os.Environment;
 
 import com.woaiqw.sdk_share.model.AppId;
 import com.woaiqw.sdk_share.model.ShareBean;
 import com.woaiqw.sdk_share.presenter.SharePresenter;
 import com.woaiqw.sdk_share.utils.SerializeUtils;
 import com.woaiqw.sdk_share.view.IShareView;
-import com.woaiqw.sdk_share.view.OnShareClickListener;
 import com.woaiqw.sdk_share.view.ShareDialog;
 
-import java.io.File;
+import static com.woaiqw.sdk_share.utils.Utils.getSerializePath;
 
 /**
  * Created by haoran on 2018/8/3.
@@ -23,8 +21,12 @@ public class ShareSdkProxy {
     private ShareSdkProxy() {
     }
 
+    public interface OnShareClickListener {
+        void onShareClick(@ShareChannel int channel);
+    }
+
     private static class Holder {
-        private static ShareSdkProxy IN = new ShareSdkProxy();
+        private static final ShareSdkProxy IN = new ShareSdkProxy();
     }
 
 
@@ -35,31 +37,22 @@ public class ShareSdkProxy {
     public void init(Application app, String[] appIds) {
 
         if (app != null && appIds != null && appIds.length == 3) {
-            AppId appId = new AppId(appIds[0], appIds[1], appIds[2]);
-            String serializePath = getSerializePath(app);
-            SerializeUtils.serialization(serializePath, appId);
+            try {
+                SerializeUtils.serialization(getSerializePath(app), new AppId(appIds[0], appIds[1], appIds[2]));
+            } catch (Exception e) {
+                throw new RuntimeException(" ShareSdk serialized error： " + e);
+            }
         } else {
-            throw new RuntimeException(" ShareSdk 初始化失败 ");
+            throw new RuntimeException(" ShareSdk init error ");
         }
 
     }
 
-    public String getSerializePath(Application app) {
-        File dir;
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = app.getExternalFilesDir("share-sdk");
-        } else {
-            dir = app.getCacheDir();
-        }
-        assert dir != null;
-        File serializeFile = new File(dir, "sdk.txt");
-        return serializeFile.getAbsolutePath();
-    }
 
     /**
      * the channel turn can inflect the turn of IShareView
      *
-     * @param shareChannel
+     * @param shareChannel the type of share function
      * @return
      * @link ShareChannel.java
      */
@@ -67,26 +60,30 @@ public class ShareSdkProxy {
         return new ShareDialog().createShareDialog(shareChannel, spanCount);
     }
 
-    public void setOnShareClickListener(IShareView iShareView, final Activity activity, final ShareBean shareBean) {
-
-        iShareView.setOnShareClickListener(new OnShareClickListener() {
+    /**
+     * @param dialog    dialog
+     * @param activity  the current activity to accept the result of the share sdk
+     * @param shareBean the model of share function
+     */
+    public void setOnShareClickListener(IShareView dialog, final Activity activity, final ShareBean shareBean) {
+        dialog.setOnShareClickListener(new OnShareClickListener() {
             @Override
             public void onShareClick(int channel) {
                 switch (channel) {
                     case ShareChannel.CHANNEL_WECHAT:
-                        SharePresenter.start().onShareWx(activity, shareBean);
+                        SharePresenter.start(activity).onShareWx(shareBean);
                         break;
                     case ShareChannel.CHANNEL_WECHAT_MOMENT:
-                        SharePresenter.start().onShareWxCircle(activity, shareBean);
+                        SharePresenter.start(activity).onShareWxCircle(shareBean);
                         break;
                     case ShareChannel.CHANNEL_QQ:
-                        SharePresenter.start().onShareQQ(activity, shareBean);
+                        SharePresenter.start(activity).onShareQQ(shareBean);
                         break;
                     case ShareChannel.CHANNEL_QQ_ZONE:
-                        SharePresenter.start().onShareQZone(activity, shareBean);
+                        SharePresenter.start(activity).onShareQZone(shareBean);
                         break;
                     case ShareChannel.CHANNEL_WEIBO:
-                        SharePresenter.start().onShareWeiBo(activity, shareBean);
+                        SharePresenter.start(activity).onShareWeiBo(shareBean);
                         break;
                     case ShareChannel.CHANNEL_MORE:
                         break;
