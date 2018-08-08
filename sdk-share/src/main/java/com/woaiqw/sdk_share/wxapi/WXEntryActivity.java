@@ -22,14 +22,14 @@ import static com.woaiqw.sdk_share.utils.Utils.getSerializePath;
  * @zshh 修改微信登陆过程中获取code, 之后发送消息給, LoginActivity, Activity直接进行页面跳转．＠91行
  */
 public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler {
-    private IWXAPI mWxapi;
+    private IWXAPI iwxapi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppId appId = (AppId) SerializeUtils.deserialization(getSerializePath(this.getApplication()));
-        mWxapi = WXAPIFactory.createWXAPI(this, appId.getWECHAT());
-        mWxapi.handleIntent(getIntent(), this);
+        iwxapi = WXAPIFactory.createWXAPI(this, appId.getWECHAT());
+        iwxapi.handleIntent(getIntent(), this);
     }
 
 
@@ -48,7 +48,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        mWxapi.handleIntent(intent, this);
+        iwxapi.handleIntent(intent, this);
         finish();
     }
 
