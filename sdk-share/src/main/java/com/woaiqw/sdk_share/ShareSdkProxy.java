@@ -16,7 +16,7 @@ import static com.woaiqw.sdk_share.utils.Utils.getSerializePath;
  * Created by haoran on 2018/8/3.
  */
 
-public class ShareSdkProxy {
+public class ShareSdkProxy implements IShareSdkProxy {
 
     private ShareSdkProxy() {
     }
@@ -34,6 +34,7 @@ public class ShareSdkProxy {
         return Holder.IN;
     }
 
+    @Override
     public void init(Application app, String[] appIds) {
 
         if (app != null && appIds != null && appIds.length == 3) {
@@ -57,6 +58,7 @@ public class ShareSdkProxy {
      * @return the instance of dialog
      * @link ShareChannel.java
      */
+    @Override
     public IShareView createShareDialog(int[] shareChannel, int column) {
         return ShareDialog.get().createShareDialog(shareChannel, column);
     }
@@ -66,6 +68,7 @@ public class ShareSdkProxy {
      * @param activity  the current activity to accept the result of the share sdk
      * @param shareBean the model of share function
      */
+    @Override
     public void setOnShareClickListener(IShareView dialog, final Activity activity, final ShareBean shareBean) {
         dialog.setOnShareClickListener(new OnShareClickListener() {
             @Override
