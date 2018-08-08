@@ -97,6 +97,10 @@ public class ShareDialog extends DialogFragment implements IShareView, View.OnCl
         dismissAllowingStateLoss();
     }
 
+    public static ShareDialog get() {
+        return new ShareDialog();
+    }
+
 
     private class ShareAdapter extends RecyclerView.Adapter<MyShareHolder> {
 
