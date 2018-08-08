@@ -37,10 +37,10 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     }
 
 
-    private int mShareType;
-    private WXShare mWXShare;
-    private SineShare mSineShare;
-    private QQShare mQQShare;
+    private int shareType;
+    private WXShare wxShare;
+    private SineShare sineShare;
+    private QQShare qqShare;
     private AppId appId;
     private ShareBean shareBean;
 
@@ -50,9 +50,9 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
         setContentView(R.layout.activity_progress);
         Intent intent = getIntent();
         shareBean = intent.getParcelableExtra(SHARE_ENTRY);
-        mShareType = intent.getIntExtra(SHARE_CHANNEL, -1);
+        shareType = intent.getIntExtra(SHARE_CHANNEL, -1);
         appId = (AppId) SerializeUtils.deserialization(getSerializePath(this.getApplication()));
-        switch (mShareType) {
+        switch (shareType) {
             case ShareChannel.CHANNEL_WECHAT:
                 weiXinFriend();
                 break;
@@ -74,8 +74,8 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (mSineShare != null) {
-            mSineShare.doResultIntent(intent, this);
+        if (sineShare != null) {
+            sineShare.doResultIntent(intent, this);
         }
     }
 
@@ -83,44 +83,44 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (mQQShare != null) {
-            mQQShare.onActivityResultData(requestCode, resultCode, data);
+        if (qqShare != null) {
+            qqShare.onActivityResultData(requestCode, resultCode, data);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mWXShare != null) {
-            mWXShare.unregisterWXReceiver();
+        if (wxShare != null) {
+            wxShare.unregisterWXReceiver();
         }
     }
 
     private void weiXinFriend() {
-        mWXShare = new WXShare(this, appId.getWECHAT(), false);
-        mWXShare.registerWXReceiver();
-        mWXShare.sendWebShareMessage(shareBean, this);
+        wxShare = new WXShare(this, appId.getWECHAT(), false);
+        wxShare.registerWXReceiver();
+        wxShare.sendWebShareMessage(shareBean, this);
     }
 
     private void weiXinCircle() {
-        mWXShare = new WXShare(this, appId.getWECHAT(), true);
-        mWXShare.registerWXReceiver();
-        mWXShare.sendWebShareMessage(shareBean, this);
+        wxShare = new WXShare(this, appId.getWECHAT(), true);
+        wxShare.registerWXReceiver();
+        wxShare.sendWebShareMessage(shareBean, this);
     }
 
     private void weiBoShare() {
-        mSineShare = new SineShare(this, appId.getWEIBO());
-        mSineShare.sendWebShareMessage(shareBean);
+        sineShare = new SineShare(this, appId.getWEIBO());
+        sineShare.sendWebShareMessage(shareBean);
     }
 
     private void qqShare() {
-        mQQShare = new QQShare(this, appId.getQQ(), true);
-        mQQShare.sendWebShareMessage(shareBean, this);
+        qqShare = new QQShare(this, appId.getQQ(), true);
+        qqShare.sendWebShareMessage(shareBean, this);
     }
 
     private void qZoneShare() {
-        mQQShare = new QQShare(this, appId.getQQ(), false);
-        mQQShare.sendWebShareMessage(shareBean, this);
+        qqShare = new QQShare(this, appId.getQQ(), false);
+        qqShare.sendWebShareMessage(shareBean, this);
     }
 
 
@@ -157,7 +157,7 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
 
     public void finishWithResult(@ShareStatus final int status) {
         Intent intent = new Intent();
-        intent.putExtra(RESULT_CHANNEL, mShareType);
+        intent.putExtra(RESULT_CHANNEL, shareType);
         intent.putExtra(RESULT_STATUS, status);
         setResult(Activity.RESULT_OK, intent);
         finish();
