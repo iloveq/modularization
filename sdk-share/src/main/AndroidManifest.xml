@@ -30,13 +30,13 @@
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".view.ShareActivity"
+            android:name="com.woaiqw.sdk_share.view.ShareActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleTranslucentTheme" />
 
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.woaiqw.sdk_share.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
