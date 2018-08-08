@@ -14,6 +14,7 @@ import com.woaiqw.base.common.BaseFragment;
 import com.woaiqw.base.utils.ToastUtil;
 import com.woaiqw.sdk_share.ShareChannel;
 import com.woaiqw.sdk_share.ShareSdkProxy;
+import com.woaiqw.sdk_share.ShareStatus;
 import com.woaiqw.sdk_share.model.ShareBean;
 import com.woaiqw.sdk_share.view.IShareView;
 import com.woaiqw.sdk_share.view.ShareActivity;
@@ -52,13 +53,13 @@ public class HomeFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra(ShareActivity.RESULT_STATUS, -1);
             switch (status) {
-                case ShareActivity.SHARE_STATUS_COMPLETE:
+                case ShareStatus.SHARE_STATUS_COMPLETE:
                     ToastUtil.showShortToast("分享成功");
                     break;
-                case ShareActivity.SHARE_STATUS_ERROR:
+                case ShareStatus.SHARE_STATUS_ERROR:
                     ToastUtil.showShortToast("分享失败");
                     break;
-                case ShareActivity.SHARE_STATUS_CANCEL:
+                case ShareStatus.SHARE_STATUS_CANCEL:
                     ToastUtil.showShortToast("取消分享");
                     break;
             }

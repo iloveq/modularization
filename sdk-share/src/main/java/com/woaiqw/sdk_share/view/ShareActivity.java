@@ -9,6 +9,7 @@ import com.sina.weibo.sdk.share.WbShareCallback;
 import com.woaiqw.sdk_share.R;
 import com.woaiqw.sdk_share.ShareChannel;
 import com.woaiqw.sdk_share.ShareListener;
+import com.woaiqw.sdk_share.ShareStatus;
 import com.woaiqw.sdk_share.model.AppId;
 import com.woaiqw.sdk_share.model.ShareBean;
 import com.woaiqw.sdk_share.share.QQShare;
@@ -20,12 +21,6 @@ import static com.woaiqw.sdk_share.utils.Utils.getSerializePath;
 
 
 public class ShareActivity extends Activity implements WbShareCallback, ShareListener {
-
-
-    public static final int SHARE_STATUS_COMPLETE = 1;
-    public static final int SHARE_STATUS_CANCEL = 2;
-    public static final int SHARE_STATUS_ERROR = 3;
-
 
     private static final String SHARE_ENTRY = "ShareBean";
     private static final String SHARE_CHANNEL = "ShareChannel";
@@ -146,21 +141,21 @@ public class ShareActivity extends Activity implements WbShareCallback, ShareLis
 
     @Override
     public void onShareSuccess() {
-        finishWithResult(SHARE_STATUS_COMPLETE);
+        finishWithResult(ShareStatus.SHARE_STATUS_COMPLETE);
     }
 
 
     @Override
     public void onShareCancel() {
-        finishWithResult(SHARE_STATUS_CANCEL);
+        finishWithResult(ShareStatus.SHARE_STATUS_CANCEL);
     }
 
     @Override
     public void onShareFail() {
-        finishWithResult(SHARE_STATUS_ERROR);
+        finishWithResult(ShareStatus.SHARE_STATUS_ERROR);
     }
 
-    public void finishWithResult(final int status) {
+    public void finishWithResult(@ShareStatus final int status) {
         Intent intent = new Intent();
         intent.putExtra(RESULT_CHANNEL, mShareType);
         intent.putExtra(RESULT_STATUS, status);
