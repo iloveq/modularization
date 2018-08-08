@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -51,6 +52,9 @@ public class WXShare {
         this.context = context;
         iwxapi = WXAPIFactory.createWXAPI(context, appId);
         this.isTimeLine = flag;
+        if (!iwxapi.isWXAppInstalled()) {
+            Toast.makeText(context,"微信没有安装",Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -74,25 +78,22 @@ public class WXShare {
 
 
     public void sendTextMessage(IShareModel shareEntry, ShareListener listener) {
-        this.shareListener = listener;
 
+        this.shareListener = listener;
         String title = shareEntry.getTitle();
         String content = shareEntry.getContent();
-
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         WXTextObject textObj = new WXTextObject();
         textObj.text = content;
-
         WXMediaMessage msg = new WXMediaMessage();
         msg.mediaObject = textObj;
         msg.title = title;
         msg.description = content;
-
         req.transaction = buildTransaction("text");
         req.message = msg;
         req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-
         iwxapi.sendReq(req);
+
     }
 
     public void sendImageMessage(IShareModel shareEntry, ShareListener listener) {
@@ -117,29 +118,25 @@ public class WXShare {
 
             @Override
             public void onException(Exception exception) {
-
                 Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), drawableId);
                 WXImageObject imgObj = new WXImageObject(bmp);
-
                 Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
                 bmp.recycle();
                 msg.thumbData = bmpToByteArray(thumbBmp, true);
-
                 msg.mediaObject = imgObj;
-
-
                 SendMessageToWX.Req req = new SendMessageToWX.Req();
-
                 req.transaction = buildTransaction("img");
                 req.message = msg;
                 req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
                 iwxapi.sendReq(req);
             }
         }).execute();
+
     }
 
 
     public void sendWebShareMessage(IShareModel share, ShareListener listener) {
+
         this.shareListener = listener;
         final String title = share.getTitle();
         final String content = share.getContent();
@@ -187,15 +184,11 @@ public class WXShare {
                     WXMediaMessage wxMediaMessage = new WXMediaMessage();
                     wxMediaMessage.title = title;
                     wxMediaMessage.description = content;
-
                     Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), drawableId);
-
                     Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
                     bmp.recycle();
                     wxMediaMessage.thumbData = bmpToByteArray(thumbBmp, true);
-
                     wxMediaMessage.mediaObject = new WXWebpageObject(actionUrl);
-
                     req.transaction = String.valueOf(System.currentTimeMillis());
                     req.message = wxMediaMessage;
                     req.scene = isTimeLine ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
