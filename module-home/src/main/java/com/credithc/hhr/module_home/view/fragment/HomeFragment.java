@@ -1,5 +1,7 @@
 package com.credithc.hhr.module_home.view.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -9,10 +11,12 @@ import com.credithc.hhr.library_common.config.ARouterConstant;
 import com.credithc.hhr.module_home.R;
 import com.credithc.hhr.module_home.R2;
 import com.woaiqw.base.common.BaseFragment;
+import com.woaiqw.base.utils.ToastUtil;
 import com.woaiqw.sdk_share.ShareChannel;
 import com.woaiqw.sdk_share.ShareSdkProxy;
 import com.woaiqw.sdk_share.model.ShareBean;
 import com.woaiqw.sdk_share.view.IShareView;
+import com.woaiqw.sdk_share.view.ShareActivity;
 
 import butterknife.BindView;
 
@@ -40,5 +44,24 @@ public class HomeFragment extends BaseFragment {
                 shareDialog.show(getFragmentManager());
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            int status = data.getIntExtra(ShareActivity.RESULT_STATUS, -1);
+            switch (status) {
+                case ShareActivity.SHARE_STATUS_COMPLETE:
+                    ToastUtil.showShortToast("分享成功");
+                    break;
+                case ShareActivity.SHARE_STATUS_ERROR:
+                    ToastUtil.showShortToast("分享失败");
+                    break;
+                case ShareActivity.SHARE_STATUS_CANCEL:
+                    ToastUtil.showShortToast("取消分享");
+                    break;
+            }
+        }
     }
 }
