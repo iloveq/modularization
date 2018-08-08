@@ -53,12 +53,12 @@ public class ShareSdkProxy {
      * the channel turn can inflect the turn of IShareView( in this is a dialog )
      *
      * @param shareChannel the type of share function
-     * @param spanCount the column of dialog
+     * @param column the column of dialog
      * @return the instance of dialog
      * @link ShareChannel.java
      */
-    public IShareView createShareDialog(int[] shareChannel, int spanCount) {
-        return ShareDialog.get().createShareDialog(shareChannel, spanCount);
+    public IShareView createShareDialog(int[] shareChannel, int column) {
+        return ShareDialog.get().createShareDialog(shareChannel, column);
     }
 
     /**
