@@ -134,7 +134,7 @@ task clean(type: Delete) {
 3：MVP 的用法
 4：ARouter 配置 HomeFragment  供 module-main 的 MainActivity 使用
 ```
-*__//TODO__*
+
 ##### 5：module-project
 
 ##### 6：module-mine
