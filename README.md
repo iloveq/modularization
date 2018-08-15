@@ -25,7 +25,6 @@ isLibraryWeb=true
 ```
 
 ##### project / build.gradle :
-(版本,签名,依赖)
 ```
 buildscript {
 
