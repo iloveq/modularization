@@ -8,7 +8,6 @@
         <activity
             android:name="com.credithc.hhr.moudle_welcome.WelcomeActivity"
             android:launchMode="singleTop"
-            android:process=":welcome"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -45,6 +45,8 @@ dependencies {
 
     api "com.android.support:multidex:${versions.dex}"
 
+    api "com.github.woaigmz:Avatar:${versions.avatar}"
+
     api project(':sdk-share')
 
 }

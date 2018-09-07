@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
-
 import com.credithc.hhr.library_common.IApiService;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -14,15 +13,14 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.woaiqw.avatar.Avatar;
+import com.woaiqw.avatar.utils.ProcessUtil;
 import com.woaiqw.base.AFrameBinder;
 import com.woaiqw.base.AFrameProxy;
 import com.woaiqw.base.common.BaseApp;
 import com.woaiqw.base.network.OkHttpHelper;
-
 import com.woaiqw.scm_api.SCM;
 import com.woaiqw.sdk_share.ShareSdkProxy;
-
-
 
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
@@ -64,7 +62,24 @@ public class App extends BaseApp {
     @Override
     public void onCreate() {
         super.onCreate();
-        SCM.get().scanningSCMTable(new String[]{"Main", "Home","Login","Mine","Register","Project","Web"});
+
+        initMultiProcessCoreLib();
+
+        //非主进程，至此返回
+        if (!ProcessUtil.isMainProcess(this)) return;
+
+        //init主进程库
+        initMainProcessCoreLib();
+
+
+    }
+
+    private void initMultiProcessCoreLib() {
+
+        Avatar.init(this);
+
+        SCM.get().scanningSCMTable(new String[]{"Main", "Home", "Login", "Mine", "Register", "Project", "Web"});
+
         AFrameProxy.getInstance().initAFrame(new AFrameBinder() {
             @Override
             public Class getApiService() {
@@ -92,8 +107,10 @@ public class App extends BaseApp {
                 return RxJava2CallAdapterFactory.create();
             }
         });
+        ShareSdkProxy.getInstance().init(this, new String[]{"214506", "wxa552e31d6839de85", "1550938859"});
+    }
 
-        ShareSdkProxy.getInstance().init(this,new String[]{"214506","wxa552e31d6839de85","1550938859"});
+    private void initMainProcessCoreLib() {
 
     }
 }
