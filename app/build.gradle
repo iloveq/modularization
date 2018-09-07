@@ -36,6 +36,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
     implementation project(':library-common')
     if (isBuildAll.toBoolean()) {
+        implementation project(':module-welcome')
         implementation project(':module-main')
         implementation project(':module-home')
         implementation project(':module-login')

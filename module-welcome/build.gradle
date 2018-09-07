@@ -1,10 +1,10 @@
-if (isBuildAll.toBoolean() || isLibraryHome.toBoolean()) {
+if(isBuildAll.toBoolean()||isLibraryWelcome.toBoolean()){
     apply plugin: 'com.android.library'
-} else {
+}else {
     apply plugin: 'com.android.application'
 }
 
-apply plugin: 'com.jakewharton.butterknife'
+apply plugin:'com.jakewharton.butterknife'
 
 android {
 
@@ -18,7 +18,7 @@ android {
         versionName var.versionName
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [KEY_MODULE_NAME: "Home"]
+                arguments = [KEY_MODULE_NAME:"Web"]
                 includeCompileClasspath true
             }
         }
@@ -28,7 +28,7 @@ android {
 
     sourceSets {
         main {
-            if (isBuildAll.toBoolean() || isLibraryHome.toBoolean()) {
+            if (isBuildAll.toBoolean() || isLibraryWelcome.toBoolean()) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
 
                 //We'll not compile the debug folder when building all.
@@ -41,15 +41,16 @@ android {
         }
     }
 
-    resourcePrefix "home_"
+    resourcePrefix "welcome_"
+
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
     annotationProcessor "com.woaigmz.scm:scm-compiler:${versions.scm_compiler}"
     implementation project(':library-common')
 
 }
+

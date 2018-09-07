@@ -1,4 +1,7 @@
 <resources>
     <string name="main_app_name">Module-Main</string>
+    <string name="main_first_tab">首页</string>
+    <string name="main_second_tab">栏目</string>
+    <string name="main_third_tab">我的</string>
 
 </resources>

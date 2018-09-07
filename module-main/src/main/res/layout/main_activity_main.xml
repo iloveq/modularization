@@ -29,19 +29,19 @@
             android:id="@+id/tvTabHome"
             style="@style/main_tab_view"
             android:drawableTop="@drawable/main_tab1_ico_selector"
-            android:text="首页" />
+            android:text="@string/main_first_tab" />
 
         <com.credithc.hhr.module_main.view.widget.TabView
             android:id="@+id/tvTabProject"
             style="@style/main_tab_view"
             android:drawableTop="@drawable/main_tab2_ico_selector"
-            android:text="项目" />
+            android:text="@string/main_second_tab" />
 
         <com.credithc.hhr.module_main.view.widget.TabView
             android:id="@+id/tvTabMine"
             style="@style/main_tab_view"
             android:drawableTop="@drawable/main_tab3_ico_selector"
-            android:text="我的" />
+            android:text="@string/main_third_tab" />
     </LinearLayout>
 
 </LinearLayout>
