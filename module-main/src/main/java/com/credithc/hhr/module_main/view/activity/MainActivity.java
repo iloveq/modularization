@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.alibaba.android.arouter.exception.InitException;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.credithc.hhr.library_common.config.ARouterConstant;
+import com.credithc.hhr.library_common.config.Constant;
 import com.credithc.hhr.module_main.R;
 import com.credithc.hhr.module_main.R2;
 import com.credithc.hhr.module_main.view.fragment.InitExceptionFragment;
@@ -48,18 +46,18 @@ public class MainActivity extends AppCompatActivity {
         tabHome.setChecked(true);
 
         try {
-            homeFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_home_router_path).navigation();
-        } catch (InitException e) {
+            homeFragment = (Fragment) Class.forName(Constant.fragment_home).newInstance();
+        } catch (Exception e) {
             homeFragment = InitExceptionFragment.newInstance(e.getMessage());
         }
         try {
-            projectFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_project_router_path).navigation();
-        } catch (InitException e) {
+            projectFragment = (Fragment) Class.forName(Constant.fragment_project).newInstance();
+        } catch (Exception e) {
             projectFragment = InitExceptionFragment.newInstance(e.getMessage());
         }
         try {
-            mineFragment = (Fragment) ARouter.getInstance().build(ARouterConstant.fragment_mine_router_path).navigation();
-        } catch (InitException e) {
+            mineFragment = (Fragment) Class.forName(Constant.fragment_mine).newInstance();
+        } catch (Exception e) {
             mineFragment = InitExceptionFragment.newInstance(e.getMessage());
         }
 

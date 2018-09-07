@@ -39,7 +39,9 @@ dependencies {
 
     api "com.github.woaigmz:AFrame:${versions.aframe}"
 
-    api "com.alibaba:arouter-api:${versions.arouter_api}"
+    api "com.woaigmz.scm:scm-api:${versions.scm_api}"
+
+    api "com.woaigmz.scm:scm-annotation:${versions.scm_annotation}"
 
     api "com.android.support:multidex:${versions.dex}"
 

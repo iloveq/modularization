@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.credithc.hhr.library_common.config.ARouterConstant;
 import com.credithc.hhr.module_home.R;
 import com.credithc.hhr.module_home.R2;
 import com.woaiqw.base.common.BaseFragment;
@@ -24,7 +22,7 @@ import butterknife.BindView;
 /**
  * Created by haoran on 2018/7/26.
  */
-@Route(path = ARouterConstant.fragment_home_router_path)
+
 public class HomeFragment extends BaseFragment {
 
     @BindView(R2.id.tv_home)

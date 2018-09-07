@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
-import com.alibaba.android.arouter.launcher.ARouter;
+
 import com.credithc.hhr.library_common.IApiService;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -18,10 +18,11 @@ import com.woaiqw.base.AFrameBinder;
 import com.woaiqw.base.AFrameProxy;
 import com.woaiqw.base.common.BaseApp;
 import com.woaiqw.base.network.OkHttpHelper;
-import com.woaiqw.base.utils.FileHelper;
+
+import com.woaiqw.scm_api.SCM;
 import com.woaiqw.sdk_share.ShareSdkProxy;
 
-import java.io.File;
+
 
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
@@ -63,11 +64,7 @@ public class App extends BaseApp {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        }
-        ARouter.init(this);
+        SCM.get().scanningSCMTable(new String[]{"Main", "Home","Login","Mine","Register","Project","Web"});
         AFrameProxy.getInstance().initAFrame(new AFrameBinder() {
             @Override
             public Class getApiService() {

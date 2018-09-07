@@ -18,7 +18,8 @@ android {
         versionName var.versionName
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [KEY_MODULE_NAME:"Mine"]
+                includeCompileClasspath true
             }
         }
     }
@@ -46,7 +47,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
-    annotationProcessor "com.alibaba:arouter-compiler:${versions.arouter_compiler}"
+    annotationProcessor "com.woaigmz.scm:scm-compiler:${versions.scm_compiler}"
     implementation project(':library-common')
 
 }
