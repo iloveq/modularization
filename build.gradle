@@ -34,7 +34,7 @@ buildscript {
                 'scm_api'           : '0.0.4',
                 'scm_compiler'      : '0.0.4',
                 'scm_annotation'    : '0.0.4',
-                'avatar'            : '0.0.1'
+                'avatar'            : '0.0.3'
         ]
     }
 

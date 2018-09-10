@@ -74,6 +74,13 @@ public class App extends BaseApp {
 
     }
 
+    @Override
+
+    public void onTerminate() {
+        super.onTerminate();
+        Avatar.recycleSource();
+    }
+
     private void initMultiProcessCoreLib() {
 
         Avatar.init(this);
