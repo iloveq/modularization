@@ -1,5 +1,7 @@
 package com.credithc.hhr.moudle_welcome;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -66,9 +68,12 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     @Subscribe(tag = EventConstants.FINISH_WELCOME_PAGE)
-    public void finishWelcomePage(String data) {
+    public void welcomeProcessGcAndReleaseSome(String data) {
         Toast.makeText(WelcomeActivity.this, data, Toast.LENGTH_SHORT).show();
         WelcomeActivity.this.finish();
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        assert activityManager != null;
+        activityManager.killBackgroundProcesses("com.credithc.hhr:welcome");
     }
 
     @Override

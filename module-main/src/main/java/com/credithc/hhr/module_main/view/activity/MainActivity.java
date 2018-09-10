@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.credithc.hhr.library_common.config.Constant;
 import com.credithc.hhr.library_common.config.EventConstants;
@@ -15,7 +14,6 @@ import com.credithc.hhr.module_main.R2;
 import com.credithc.hhr.module_main.view.fragment.InitExceptionFragment;
 import com.credithc.hhr.module_main.view.widget.TabView;
 import com.woaiqw.avatar.Avatar;
-import com.woaiqw.avatar.annotation.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_main);
         ButterKnife.bind(this);
-        Avatar.get().register(this);
         Avatar.get().post(EventConstants.FINISH_WELCOME_PAGE, "finish");
         mTabs = new TabView[]{tabHome, tabProject, tabMine};
         tabHome.setChecked(true);
@@ -110,17 +107,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Subscribe(tag = EventConstants.CLOSE_MAIN_PAGE)
-    public void closeMainPage(String data) {
-        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
-        MainActivity.this.finish();
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Avatar.get().unregister(this);
         for (int i = 0; i < mTabs.length; i++) {
             mTabs[i] = null;
             fragments[i] = null;
