@@ -10,7 +10,7 @@
             android:name="com.credithc.hhr.moudle_welcome.WelcomeActivity"
             android:launchMode="singleTop"
             android:process=":welcome"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Welcome_NoTitleTranslucentTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

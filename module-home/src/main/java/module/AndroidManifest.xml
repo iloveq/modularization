@@ -8,7 +8,7 @@
         android:label="@string/home_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.credithc.hhr.module_home.view.activity.HomeActivity">
+        <activity android:name=".view.activity.LauncherHomeModuleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

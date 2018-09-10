@@ -3,19 +3,23 @@ package com.credithc.hhr.module_home.view.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import com.credithc.hhr.library_common.bean.CardListBean;
 import com.credithc.hhr.module_home.R;
 import com.credithc.hhr.module_home.R2;
+import com.credithc.hhr.module_home.adapter.CardListAdapter;
+import com.credithc.hhr.module_home.contract.MainContract;
+import com.credithc.hhr.module_home.presenter.MainPresenter;
+import com.credithc.hhr.module_home.view.widget.BorderDividerItemDecoration;
 import com.woaiqw.base.common.BaseFragment;
 import com.woaiqw.base.utils.ToastUtil;
-import com.woaiqw.sdk_share.ShareChannel;
-import com.woaiqw.sdk_share.ShareSdkProxy;
+import com.woaiqw.base.widget.NetworkStateView;
 import com.woaiqw.sdk_share.ShareStatus;
-import com.woaiqw.sdk_share.model.ShareBean;
-import com.woaiqw.sdk_share.view.IShareView;
 import com.woaiqw.sdk_share.view.ShareActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,10 +27,14 @@ import butterknife.BindView;
  * Created by haoran on 2018/7/26.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements MainContract.IMainView, NetworkStateView.OnRetryClickListener {
 
-    @BindView(R2.id.tv_home)
-    TextView tv_home;
+    @BindView(R2.id.rv)
+    RecyclerView rv;
+    @BindView(R2.id.nsv)
+    NetworkStateView nsv;
+    MainContract.IMainPresenter presenter;
+    private CardListAdapter adapter;
 
     @Override
     protected int getLayoutId() {
@@ -35,14 +43,55 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle bundle) {
-        tv_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IShareView shareDialog = ShareSdkProxy.getInstance().createShareDialog(new int[]{ShareChannel.CHANNEL_QQ, ShareChannel.CHANNEL_WEIBO, ShareChannel.CHANNEL_WECHAT_MOMENT, ShareChannel.CHANNEL_QQ_ZONE}, 4);
-                ShareSdkProxy.getInstance().setOnShareClickListener(shareDialog, getActivity(), new ShareBean("分享了", "今天天气不错", "http://118.89.233.211:3000/images/1530106897838_.jpg", R.drawable.ic_launcher, "http://www.baidu.com"));
-                shareDialog.show(getFragmentManager());
-            }
-        });
+        nsv.setOnRetryClickListener(this);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        rv.setLayoutManager(staggeredGridLayoutManager);
+        rv.addItemDecoration(new BorderDividerItemDecoration(this.getResources().getDimensionPixelOffset(R.dimen.home_border_divider_height), this.getResources().getDimensionPixelOffset(R.dimen.home_border_padding_spans)));
+        adapter = new CardListAdapter();
+        presenter = new MainPresenter();
+        presenter.onAttach(this);
+        rv.setAdapter(adapter);
+        presenter.getCardList();
+    }
+
+
+    @Override
+    public void showLoading() {
+        nsv.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        nsv.showSuccess();
+    }
+
+    @Override
+    public void onError(String message) {
+        ToastUtil.showShortToast(message);
+        nsv.showError();
+    }
+
+    @Override
+    public void showEmptyDataView() {
+        nsv.showEmpty();
+    }
+
+    @Override
+    public void showCardList(List<CardListBean.CardBean> cardBeanList) {
+        if (adapter != null)
+            adapter.replaceData(cardBeanList);
+    }
+
+    @Override
+    public void onRefresh() {
+        ToastUtil.showShortToast("重新请求中...");
+        presenter.getCardList();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDetach();
     }
 
     @Override
