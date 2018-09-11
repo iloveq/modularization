@@ -1,13 +1,10 @@
 package com.credithc.hhr.module_project.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.credithc.hhr.module_project.R;
 import com.credithc.hhr.module_project.R2;
-import com.credithc.hhr.module_project.view.activity.ProjectDetailActivity;
 import com.woaiqw.base.common.BaseFragment;
 
 import butterknife.BindView;
@@ -29,12 +26,6 @@ public class ProjectFragment extends BaseFragment {
     @Override
     protected void afterCreate(Bundle bundle) {
 
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), ProjectDetailActivity.class));
-            }
-        });
 
     }
 }

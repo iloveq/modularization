@@ -8,7 +8,7 @@
         android:label="@string/home_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.LauncherHomeModuleActivity">
+        <activity android:name="module.LauncherHomeModuleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

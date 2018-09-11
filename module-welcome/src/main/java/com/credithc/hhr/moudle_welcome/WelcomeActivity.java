@@ -89,7 +89,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     @Subscribe(tag = EventConstants.FINISH_WELCOME_PAGE)
-    public void welcomeProcessGcAndReleaseSome(String data) {
+    public void releaseProcess(String data) {
         Log.e(TAG, data + "：start - - - gc");
         finish();
         ProcessUtils.killCurrentProcess(getApplication());

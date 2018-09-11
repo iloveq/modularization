@@ -1,4 +1,4 @@
-package com.credithc.hhr.module_home.view.activity;
+package module;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

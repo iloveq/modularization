@@ -1,7 +1,5 @@
 package com.credithc.hhr.module_home.view.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -16,8 +14,6 @@ import com.credithc.hhr.module_home.view.widget.BorderDividerItemDecoration;
 import com.woaiqw.base.common.BaseFragment;
 import com.woaiqw.base.utils.ToastUtil;
 import com.woaiqw.base.widget.NetworkStateView;
-import com.woaiqw.sdk_share.ShareStatus;
-import com.woaiqw.sdk_share.view.ShareActivity;
 
 import java.util.List;
 
@@ -94,22 +90,5 @@ public class HomeFragment extends BaseFragment implements MainContract.IMainView
         presenter.onDetach();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            int status = data.getIntExtra(ShareActivity.RESULT_STATUS, -1);
-            switch (status) {
-                case ShareStatus.SHARE_STATUS_COMPLETE:
-                    ToastUtil.showShortToast("分享成功");
-                    break;
-                case ShareStatus.SHARE_STATUS_ERROR:
-                    ToastUtil.showShortToast("分享失败");
-                    break;
-                case ShareStatus.SHARE_STATUS_CANCEL:
-                    ToastUtil.showShortToast("取消分享");
-                    break;
-            }
-        }
-    }
+
 }
