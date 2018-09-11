@@ -1,3 +1,4 @@
 <resources>
     <string name="welcome_app_name">Moudle-Welcome</string>
+    <string name="welcome_permission_tip">非WIFI状态可能造成流量浪费,可在系统设置打开改权限</string>
 </resources>

@@ -1,35 +1,38 @@
 package com.credithc.hhr.moudle_welcome;
 
 import android.Manifest;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Toast;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.credithc.hhr.library_common.config.ActionConstants;
 import com.credithc.hhr.library_common.config.EventConstants;
 import com.credithc.hhr.module_welcome.R;
+import com.credithc.hhr.moudle_welcome.utils.ProcessUtils;
 import com.woaiqw.avatar.Avatar;
 import com.woaiqw.avatar.annotation.Subscribe;
-import com.woaiqw.base.common.BaseActivity;
+import com.woaiqw.base.utils.ActivityUtils;
 import com.woaiqw.base.utils.PermissionListener;
 import com.woaiqw.base.utils.PermissionUtils;
+import com.woaiqw.base.utils.ToastUtil;
 import com.woaiqw.base.utils.WeakHandler;
 import com.woaiqw.scm_api.SCM;
 import com.woaiqw.scm_api.ScCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by haoran on 2018/9/7.
  */
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
+    private static final String TAG = "WelcomeActivity";
     private WeakHandler h = new WeakHandler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -46,15 +49,11 @@ public class WelcomeActivity extends BaseActivity {
         }
     };
 
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.welcome_activity_welcome;
-    }
-
-    @Override
-    protected void afterCreate(Bundle bundle) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Avatar.get().register(this);
+        ActivityUtils.addActivity(this);
         PermissionUtils.requestPermissions(permissions, new PermissionListener() {
             @Override
             public void onGranted() {
@@ -64,10 +63,13 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void onDenied(List<String> deniedPermissions) {
 
+                ToastUtil.showShortToast(getString(R.string.welcome_permission_tip));
+
             }
         });
         h.postDelayed(task, 3000);
     }
+
 
     private void entryMain() {
 
@@ -76,7 +78,7 @@ public class WelcomeActivity extends BaseActivity {
                 @Override
                 public void onCallback(boolean b, String data, String tag) {
                     if (b) {
-                        Toast.makeText(WelcomeActivity.this, data, Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, data + "：" + ActionConstants.ENTRY_MAIN_PAGE);
                     }
                 }
             });
@@ -88,17 +90,42 @@ public class WelcomeActivity extends BaseActivity {
 
     @Subscribe(tag = EventConstants.FINISH_WELCOME_PAGE)
     public void welcomeProcessGcAndReleaseSome(String data) {
-        Toast.makeText(WelcomeActivity.this, data, Toast.LENGTH_SHORT).show();
-        WelcomeActivity.this.finish();
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        assert activityManager != null;
-        activityManager.killBackgroundProcesses("com.credithc.hhr:welcome");
+        Log.e(TAG, data + "：start - - - gc");
+        finish();
+        ProcessUtils.killCurrentProcess(getApplication());
+        Log.e(TAG, "end - - gc - - release");
+    }
+
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0) {
+                    List<String> deniedPermissions = new ArrayList<>();
+                    for (int i = 0; i < grantResults.length; ++i) {
+                        int result = grantResults[i];
+                        if (result != 0) {
+                            String permission = permissions[i];
+                            deniedPermissions.add(permission);
+                        }
+                    }
+
+                    if (deniedPermissions.isEmpty()) {
+                        PermissionUtils.mPermissionListener.onGranted();
+                    } else {
+                        PermissionUtils.mPermissionListener.onDenied(deniedPermissions);
+                    }
+                }
+            default:
+        }
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ActivityUtils.removeActivity(this);
         Avatar.get().unregister(this);
         h.removeCallbacksAndMessages(null);
     }
