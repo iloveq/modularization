@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.credithc.hhr.library_common.config.ActionConstants;
@@ -16,21 +14,20 @@ import com.credithc.hhr.module_welcome.R;
 import com.credithc.hhr.moudle_welcome.utils.ProcessUtils;
 import com.woaiqw.avatar.Avatar;
 import com.woaiqw.avatar.annotation.Subscribe;
+import com.woaiqw.base.common.PermissionActivity;
 import com.woaiqw.base.utils.ActivityUtils;
 import com.woaiqw.base.utils.PermissionListener;
-import com.woaiqw.base.utils.PermissionUtils;
 import com.woaiqw.base.utils.ToastUtil;
 import com.woaiqw.base.utils.WeakHandler;
 import com.woaiqw.scm_api.SCM;
 import com.woaiqw.scm_api.ScCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by haoran on 2018/9/7.
  */
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends PermissionActivity {
 
     private static final String TAG = "WelcomeActivity";
     private WeakHandler h = new WeakHandler(new Handler.Callback() {
@@ -49,12 +46,11 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     };
 
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Avatar.get().register(this);
         ActivityUtils.addActivity(this);
-        PermissionUtils.requestPermissions(permissions, new PermissionListener() {
+        requestPermissions(permissions, new PermissionListener() {
             @Override
             public void onGranted() {
 
@@ -85,7 +81,6 @@ public class WelcomeActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Subscribe(tag = EventConstants.FINISH_WELCOME_PAGE)
@@ -94,31 +89,6 @@ public class WelcomeActivity extends AppCompatActivity {
         finish();
         ProcessUtils.killCurrentProcess(getApplication());
         Log.e(TAG, "end - - gc - - release");
-    }
-
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1:
-                if (grantResults.length > 0) {
-                    List<String> deniedPermissions = new ArrayList<>();
-                    for (int i = 0; i < grantResults.length; ++i) {
-                        int result = grantResults[i];
-                        if (result != 0) {
-                            String permission = permissions[i];
-                            deniedPermissions.add(permission);
-                        }
-                    }
-
-                    if (deniedPermissions.isEmpty()) {
-                        PermissionUtils.mPermissionListener.onGranted();
-                    } else {
-                        PermissionUtils.mPermissionListener.onDenied(deniedPermissions);
-                    }
-                }
-            default:
-        }
     }
 
 
