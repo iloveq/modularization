@@ -6,11 +6,12 @@ import android.view.View;
 
 import com.credithc.hhr.module_home.R;
 import com.credithc.hhr.module_home.view.widget.RatioImageView;
-import com.woaiqw.adapter.BaseSmartAdapter;
-import com.woaiqw.adapter.BaseViewHolder;
+
 
 import com.credithc.hhr.library_common.bean.CardListBean;
 
+import com.woaiqw.adapter.base.BaseSmartAdapter;
+import com.woaiqw.adapter.holder.BaseViewHolder;
 import com.woaiqw.base.utils.ImageLoader;
 
 /**

@@ -75,7 +75,6 @@ public class App extends BaseApp {
     }
 
     @Override
-
     public void onTerminate() {
         super.onTerminate();
         Avatar.recycleSource();
