@@ -25,7 +25,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${versions.support_library}"
     implementation "com.android.support:recyclerview-v7:${versions.support_library}"
-    compile 'com.jakewharton:disklrucache:2.0.2'
-    compile 'com.sina.weibo.sdk:core:4.1.4:openDefaultRelease@aar'
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
+    implementation 'com.jakewharton:disklrucache:2.0.2'
+    implementation 'com.sina.weibo.sdk:core:4.1.4:openDefaultRelease@aar'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
 }
