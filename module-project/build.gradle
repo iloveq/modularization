@@ -1,4 +1,4 @@
-if(isBuildAll.toBoolean()||isLibraryProject.toBoolean()){
+if(config.isBuildAll||config.isLibraryProject){
     apply plugin: 'com.android.library'
 }else {
     apply plugin: 'com.android.application'
@@ -35,7 +35,7 @@ android {
 
     sourceSets {
         main {
-            if (isBuildAll.toBoolean() || isLibraryProject.toBoolean()) {
+            if (config.isBuildAll || config.isLibraryProject) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
 
                 //We'll not compile the debug folder when building all.

@@ -11,7 +11,6 @@ import android.util.Log;
 import com.credithc.hhr.library_common.config.ActionConstants;
 import com.credithc.hhr.library_common.config.EventConstants;
 import com.credithc.hhr.module_welcome.R;
-import com.credithc.hhr.moudle_welcome.utils.ProcessUtils;
 import com.woaiqw.avatar.Avatar;
 import com.woaiqw.avatar.annotation.Subscribe;
 import com.woaiqw.base.common.PermissionActivity;
@@ -23,6 +22,8 @@ import com.woaiqw.scm_api.SCM;
 import com.woaiqw.scm_api.ScCallback;
 
 import java.util.List;
+
+import static com.credithc.hhr.moudle_welcome.utils.ProcessUtils.killCurrentProcess;
 
 /**
  * Created by haoran on 2018/9/7.
@@ -87,7 +88,7 @@ public class WelcomeActivity extends PermissionActivity {
     public void releaseProcess(String data) {
         Log.e(TAG, data + "：start - - - gc");
         finish();
-        ProcessUtils.killCurrentProcess(getApplication());
+        killCurrentProcess(getApplication());
         Log.e(TAG, "end - - gc - - release");
     }
 

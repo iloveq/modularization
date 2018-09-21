@@ -11,30 +11,45 @@ buildscript {
         ]
 
         var = [
-                gradle              :"3.0.1",
-                compileSdkVersion   : 26,
-                buildToolsVersion   : "26.0.2",
-                minSdkVersion       : 19,
-                targetSdkVersion    : 26,
-                versionCode         : 1,
-                versionName         : "1.0"
+                gradle           : "3.0.1",
+                compileSdkVersion: 26,
+                buildToolsVersion: "26.0.2",
+                minSdkVersion    : 19,
+                targetSdkVersion : 26,
+                versionCode      : 1,
+                versionName      : "1.0"
 
         ]
 
         versions = [
 
-                'support_library'   : '26.1.0',
-                'diff_adapter'      : '0.2.1',
-                'refresh_layout'    : '1.0.5.1',
-                'refresh_header'    : '1.0.3',
-                'aframe'            : '0.1.1',
-                'leakcanary'        : '1.5.4',
-                'butterknife'       : '8.5.1',
-                'dex'               : '1.0.3',
-                'scm_api'           : '0.0.4',
-                'scm_compiler'      : '0.0.4',
-                'scm_annotation'    : '0.0.4',
-                'avatar'            : '0.0.3'
+                'support_library': '26.1.0',
+                'diff_adapter'   : '0.2.1',
+                'refresh_layout' : '1.0.5.1',
+                'refresh_header' : '1.0.3',
+                'aframe'         : '0.1.1',
+                'leakcanary'     : '1.5.4',
+                'butterknife'    : '8.5.1',
+                'dex'            : '1.0.3',
+                'scm_api'        : '0.0.4',
+                'scm_compiler'   : '0.0.4',
+                'scm_annotation' : '0.0.4',
+                'avatar'         : '0.0.4'
+        ]
+
+        config = [
+
+                "isBuildAll"       : true,
+
+                "isLibraryMain"    : true,
+                "isLibraryWelcome" : true,
+                "isLibraryHome"    : true,
+                "isLibraryLogin"   : true,
+                "isLibraryMine"    : true,
+                "isLibraryProject" : true,
+                "isLibraryRegister": true,
+                "isLibraryWeb"     : true
+
         ]
     }
 

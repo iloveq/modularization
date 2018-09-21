@@ -35,7 +35,7 @@ dependencies {
     //noinspection GradleDependency
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
     implementation project(':library-common')
-    if (isBuildAll.toBoolean()) {
+    if (config.isBuildAll) {
         implementation project(':module-welcome')
         implementation project(':module-main')
         implementation project(':module-home')

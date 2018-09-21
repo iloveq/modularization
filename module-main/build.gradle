@@ -1,4 +1,4 @@
-if(isBuildAll.toBoolean()||isLibraryMain.toBoolean()){
+if(config.isBuildAll||config.isLibraryMain){
     apply plugin: 'com.android.library'
 }else {
     apply plugin: 'com.android.application'
@@ -26,7 +26,7 @@ android {
 
     sourceSets {
         main {
-            if (isBuildAll.toBoolean() || isLibraryMain.toBoolean()) {
+            if (config.isBuildAll || config.isLibraryMain) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
 
                 //We'll not compile the debug folder when building all.
@@ -49,7 +49,7 @@ dependencies {
     annotationProcessor "com.woaigmz.scm:scm-compiler:${versions.scm_compiler}"
     implementation project(':library-common')
 
-    if(!isLibraryMain.toBoolean()){
+    if(!config.isLibraryMain){
         implementation project(':module-home')
         implementation project(':module-project')
         implementation project(':module-mine')
