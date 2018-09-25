@@ -4,7 +4,7 @@
 ### 项目简介及计划：
 ##### 1：使用 ARouter，ButterKnife，AFrame(rxjava2、okhttp3、base封装、常用util)
 ##### 2：每个module结构不限，可MVVM/MVP，可不同网络框架
-##### 3：*//TODO*   组件化（module-share）、多进程（webview/push）、多进程通信、插件下发及加载（module-main的SplashActivity处理）
+##### 3： 组件化（module-share）、多进程（webview/push）、多进程通信、插件下发及加载（module-welcome的WelcomeActivity在 :welcome 子进程处理）
 
 ### 组件化控制：
 
@@ -12,16 +12,24 @@
 (组件化开关 toggle)
 
 ```
-isBuildAll=true
+ext {
 
-isLibraryMain=true
+       ...
+        config = [
 
-isLibraryHome=true
-isLibraryLogin=true
-isLibraryMine=true
-isLibraryProject=true
-isLibraryRegister=true
-isLibraryWeb=true
+                "isBuildAll"       : true,
+
+                "isLibraryMain"    : true,
+                "isLibraryWelcome" : true,
+                "isLibraryHome"    : true,
+                "isLibraryLogin"   : true,
+                "isLibraryMine"    : true,
+                "isLibraryProject" : true,
+                "isLibraryRegister": true,
+                "isLibraryWeb"     : true
+
+        ]
+    }
 ```
 
 ##### project / build.gradle :
