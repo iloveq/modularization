@@ -1,5 +1,5 @@
 # modularization 安卓组件化demo
-可根据自己需求修改模块,感谢star issues follow ：) 
+可根据自己需求修改模块,感谢 ：) 
 
 ### 项目简介及计划：
 ##### 1：使用 ARouter，ButterKnife，AFrame(rxjava2、okhttp3、base封装、常用util)
